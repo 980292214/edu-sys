@@ -1,0 +1,32 @@
+#端口号
+server:
+  port: 9998
+#数据库连接信息
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: root
+    url: jdbc:mysql://localhost:3306/x-admin?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true&useSSL=false&serverTimezone=GMT%2b8&allowPublicKeyRetrieval=true
+    type: com.alibaba.druid.pool.DruidDataSource
+  mvc:
+    favicon:
+      enabled: true
+  #  jpa:
+#    generate-ddl: false
+#    hibernate:
+#      ddl-auto: none
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
+#mybatis映射
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+#日志的打印
+logging:
+  level:
+    com:
+      example:
+        mapper:
+          debug
