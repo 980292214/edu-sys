@@ -30,7 +30,6 @@
         <el-table-column prop="id" label="ID" width="100"> </el-table-column>
         <el-table-column prop="majorid" label="专业编号"></el-table-column>
         <el-table-column prop="majorname" label="专业名称"></el-table-column>
-        <el-table-column prop="majordesc" label="专业介绍"></el-table-column>
         <el-table-column prop="departid" label="院系编号"></el-table-column>
 
         <el-table-column
@@ -69,9 +68,6 @@
             </el-form-item>
             <el-form-item label="专业名称" label-width="120px">
                 <el-input v-model="entity.majorname" autocomplete="off" style="width: 80%"></el-input>
-            </el-form-item>
-            <el-form-item label="专业介绍" label-width="120px">
-                <el-input v-model="entity.majordesc" autocomplete="off" style="width: 80%"></el-input>
             </el-form-item>
             <el-form-item label="院系编号" label-width="120px">
                 <el-input v-model="entity.departid" autocomplete="off" style="width: 80%"></el-input>

@@ -27,11 +27,6 @@ public class major extends Model<major> {
     private String majorname;
 
     /**
-      * 专业介绍 
-      */
-    private String majordesc;
-
-    /**
       * 院系编号 
       */
     private String departid;

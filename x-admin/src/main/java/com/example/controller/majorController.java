@@ -87,9 +87,9 @@ public class majorController {
         List<major> all = majorService.list();
         for (major obj : all) {
             Map<String, Object> row = new LinkedHashMap<>();
+            row.put("", obj.getId());
             row.put("专业编号", obj.getMajorid());
             row.put("专业名称", obj.getMajorname());
-            row.put("专业介绍", obj.getMajordesc());
             row.put("院系编号", obj.getDepartid());
 
             list.add(row);
@@ -120,8 +120,7 @@ public class majorController {
             major obj = new major();
             obj.setMajorid((String) row.get(1));
             obj.setMajorname((String) row.get(2));
-            obj.setMajordesc((String) row.get(3));
-            obj.setDepartid((String) row.get(4));
+            obj.setDepartid((String) row.get(3));
 
             saveList.add(obj);
         }

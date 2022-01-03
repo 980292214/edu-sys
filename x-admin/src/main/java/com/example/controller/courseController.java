@@ -95,9 +95,9 @@ public class courseController {
             row.put("课程描述", obj.getCoursedesc());
             row.put("上课地点", obj.getPlace());
             row.put("上课时间", obj.getTime());
-            row.put("修读方式", obj.getMode());
+            row.put("修读方式", obj.getModer());
             row.put("课程人数", obj.getNumber());
-            row.put("限选专业", obj.getLimit());
+            row.put("限选专业", obj.getLimitmajor());
             row.put("审核状态", obj.getState());
 
             list.add(row);
@@ -134,9 +134,9 @@ public class courseController {
             obj.setCoursedesc((String) row.get(6));
             obj.setPlace((String) row.get(7));
             obj.setTime((String) row.get(8));
-            obj.setMode((String) row.get(9));
+            obj.setModer((String) row.get(9));
             obj.setNumber((String) row.get(10));
-            obj.setLimit((String) row.get(11));
+            obj.setLimitmajor((String) row.get(11));
             obj.setState((String) row.get(12));
 
             saveList.add(obj);

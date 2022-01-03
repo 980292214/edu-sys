@@ -59,7 +59,7 @@ public class course extends Model<course> {
     /**
       * 修读方式 
       */
-    private String mode;
+    private String moder;
 
     /**
       * 课程人数 
@@ -69,7 +69,7 @@ public class course extends Model<course> {
     /**
       * 限选专业 
       */
-    private String limit;
+    private String limitmajor;
 
     /**
       * 审核状态 

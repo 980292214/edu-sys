@@ -10,11 +10,11 @@ import com.baomidou.mybatisplus.annotation.TableId;
 @Data
 @TableName("t_class")
 public class classinfo extends Model<classinfo> {
-//    /**
-//      * 主键
-//      */
-//    @TableId(value = "id", type = IdType.AUTO)
-//    private Long id;
+    /**
+      * 主键
+      */
+    @TableId(value = "id", type = IdType.AUTO)
+    private Long id;
 
     /**
       * 班级编号 
@@ -35,10 +35,5 @@ public class classinfo extends Model<classinfo> {
       * 专业编号 
       */
     private String majorid;
-
-    /**
-      * 院系编号 
-      */
-    private String departid;
 
 }

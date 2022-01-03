@@ -72,7 +72,7 @@ public class classinfoController {
     public Result<?> findPage(@RequestParam(required = false, defaultValue = "") String name,
                                                 @RequestParam(required = false, defaultValue = "1") Integer pageNum,
                                                 @RequestParam(required = false, defaultValue = "10") Integer pageSize) {
-        LambdaQueryWrapper<classinfo> query = Wrappers.<classinfo>lambdaQuery().orderByDesc(classinfo::getClassid);
+        LambdaQueryWrapper<classinfo> query = Wrappers.<classinfo>lambdaQuery().orderByDesc(classinfo::getId);
         if (StrUtil.isNotBlank(name)) {
             query.like(classinfo::getInstructor, name);
         }
@@ -87,11 +87,11 @@ public class classinfoController {
         List<classinfo> all = classinfoService.list();
         for (classinfo obj : all) {
             Map<String, Object> row = new LinkedHashMap<>();
+            row.put("", obj.getId());
             row.put("班级编号", obj.getClassid());
             row.put("辅导员", obj.getInstructor());
             row.put("班级人数", obj.getClasssize());
             row.put("专业编号", obj.getMajorid());
-            row.put("院系编号", obj.getDepartid());
 
             list.add(row);
         }
@@ -123,7 +123,6 @@ public class classinfoController {
             obj.setInstructor((String) row.get(2));
             obj.setClasssize((String) row.get(3));
             obj.setMajorid((String) row.get(4));
-            obj.setDepartid((String) row.get(5));
 
             saveList.add(obj);
         }
