@@ -5,7 +5,7 @@
     <meta HTTP-EQUIV="pragma" CONTENT="no-cache">
     <meta HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
     <meta HTTP-EQUIV="expires" CONTENT="0">
-        <title>个人信息</title>
+    <title>作业发布</title>
     <link rel="stylesheet" href="../../css/element.css">
     <link rel="stylesheet" href="../../css/base.css">
 </head>
@@ -14,42 +14,46 @@
     <div style="padding-bottom: 10px">
         <el-breadcrumb separator-class="el-icon-arrow-right">
             <el-breadcrumb-item @click.native="parent.changeIndex('index')">首页</el-breadcrumb-item>
-            <el-breadcrumb-item>个人信息</el-breadcrumb-item>
+            <el-breadcrumb-item>作业发布</el-breadcrumb-item>
         </el-breadcrumb>
     </div>
 
     <div style="height: 1px; margin: 10px 0; background-color: white"></div>
 
     <el-form ref="form" :model="form" label-width="80px">
+        <el-form-item label="课程名称">
+            <el-input v-model="form.course"></el-input>
+        </el-form-item>
+        <el-form-item label="任课老师">
+            <el-input v-model="form.username"></el-input>
+        </el-form-item>
+        <el-form-item label="上传附件">
+            <el-upload
+                    class="upload-demo"
+                    action="https://jsonplaceholder.typicode.com/posts/"
+                    :on-preview="handlePreview"
+                    :on-remove="handleRemove"
+                    :before-remove="beforeRemove"
+                    multiple
+                    :limit="3"
+                    :on-exceed="handleExceed"
+                    :file-list="fileList">
+                <el-button size="small" type="primary">点击上传</el-button>
+                <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
+            </el-upload>
+        </el-form-item>
+        <el-form-item label="截止日期">
+            <el-input v-model="form.deadline" :disabled="true"></el-input>
+        </el-form-item>
         <el-form-item label="学号">
             <el-input v-model="form.studentid" :disabled="true"></el-input>
         </el-form-item>
         <el-form-item label="姓名">
             <el-input v-model="form.name" :disabled="true"></el-input>
         </el-form-item>
-        <el-form-item label="性别">
-            <el-input v-model="form.sex" :disabled="true"></el-input>
-        </el-form-item>
-        <el-form-item label="年龄">
-            <el-input v-model="form.age" :disabled="true"></el-input>
-        </el-form-item>
-        <el-form-item label="班级编号">
-            <el-input v-model="form.classe" :disabled="true"></el-input>
-        </el-form-item>
-        <el-form-item label="专业名称">
-            <el-input v-model="form.major" :disabled="true"></el-input>
-        </el-form-item>
-        <el-form-item label="院系名称">
-            <el-input v-model="form.depart" :disabled="true"></el-input>
-        </el-form-item>
-        <el-form-item label="邮箱">
-            <el-input v-model="form.email" :disabled="true"></el-input>
-        </el-form-item>
-        <el-form-item label="联系方式">
-            <el-input v-model="form.phone" :disabled="true"></el-input>
-        </el-form-item>
-        <el-form-item label="入学时间">
-            <el-input v-model="form.starttime" :disabled="true"></el-input>
+        <el-form-item>
+            <el-button type="primary" @click="onSubmit">提交</el-button>
+            <el-button>取消</el-button>
         </el-form-item>
     </el-form>
 </div>
@@ -67,16 +71,11 @@
         el: "#wrapper",
         data: {
             form: {
+                course: '',
+                username: '',
+                deadline: '',
                 studentid:'',
-                name:'',
-                classe:'',
-                phone:'',
-                sex:'',
-                age:'',
-                depart:'',
-                major:'',
-                email:'',
-                starttime:''
+                name:''
             },
             fileList: [{name: 'food.jpeg', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'}, {name: 'food2.jpeg', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'}]
         },
