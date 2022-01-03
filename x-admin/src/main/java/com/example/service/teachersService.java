@@ -12,5 +12,4 @@ public class teachersService extends ServiceImpl<teachersMapper, teachers> {
 
     @Resource
     private teachersMapper teachersMapper;
-
 }
