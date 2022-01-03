@@ -27,8 +27,8 @@
 <!--    </el-upload>-->
 <!--    <el-button size='small' @click="exp" type="primary"  style="margin: 10px 0">导出</el-button>-->
     <el-table :data="tableData" border stripe style="width: 100%">
-        <el-table-column prop="id" label="ID" width="100"> </el-table-column>
-        <el-table-column prop="leaveid" label="请假编号"></el-table-column>
+        <el-table-column prop="id"  width="100" label="请假编号"> </el-table-column>
+        <!--<el-table-column prop="leaveid" label="请假编号"></el-table-column>-->
         <el-table-column prop="starttime" label="请假开始时间"></el-table-column>
         <el-table-column prop="endtime" label="请假结束时间"></el-table-column>
         <el-table-column prop="reason" label="请假原因"></el-table-column>
@@ -68,9 +68,9 @@
     <el-dialog title="请假信息表信息" :visible.sync="dialogFormVisible" width="40%"
                :close-on-click-modal="false">
         <el-form :model="entity">
-            <el-form-item label="请假编号" label-width="120px">
-                <el-input v-model="entity.leaveid" autocomplete="off" style="width: 80%"></el-input>
-            </el-form-item>
+            <!--<el-form-item label="请假编号" label-width="120px">-->
+                <!--<el-input v-model="entity.leaveid" autocomplete="off" style="width: 80%"></el-input>-->
+            <!--</el-form-item>-->
             <el-form-item label="请假开始时间" label-width="120px">
                 <el-date-picker style="width: 80%" v-model="entity.starttime" type="datetime" value-format="yyyy-MM-dd HH:mm:ss" placeholder="选择日期时间"></el-date-picker>
             </el-form-item>

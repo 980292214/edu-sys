@@ -87,7 +87,7 @@ public class leaveController {
         List<leave> all = leaveService.list();
         for (leave obj : all) {
             Map<String, Object> row = new LinkedHashMap<>();
-            row.put("请假编号", obj.getLeaveid());
+            row.put("请假编号", obj.getId());
             row.put("请假开始时间", obj.getStarttime());
             row.put("请假结束时间", obj.getEndtime());
             row.put("请假原因", obj.getReason());
@@ -122,7 +122,7 @@ public class leaveController {
         List<leave> saveList = new ArrayList<>();
         for (List<Object> row : lists) {
             leave obj = new leave();
-            obj.setLeaveid((String) row.get(1));
+            obj.setId((Long) row.get(1));
             obj.setStarttime((String) row.get(2));
             obj.setEndtime((String) row.get(3));
             obj.setReason((String) row.get(4));

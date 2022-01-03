@@ -21,6 +21,7 @@ import javax.annotation.Resource;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.net.URLEncoder;
 import java.util.*;
@@ -70,8 +71,11 @@ public class informController {
 
     @GetMapping("/page")
     public Result<?> findPage(@RequestParam(required = false, defaultValue = "") String name,
-                                                @RequestParam(required = false, defaultValue = "1") Integer pageNum,
-                                                @RequestParam(required = false, defaultValue = "10") Integer pageSize) {
+                              @RequestParam(required = false, defaultValue = "1") Integer pageNum,
+                              @RequestParam(required = false, defaultValue = "10") Integer pageSize, HttpSession httpSession) {
+        System.out.println(httpSession.getAttribute("user"));
+
+
         LambdaQueryWrapper<inform> query = Wrappers.<inform>lambdaQuery().orderByDesc(inform::getId);
         if (StrUtil.isNotBlank(name)) {
             query.like(inform::getContent, name);

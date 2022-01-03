@@ -19,7 +19,7 @@ public class leave extends Model<leave> {
     /**
       * 请假编号 
       */
-    private String leaveid;
+//    private String leaveid;
 
     /**
       * 请假开始时间 

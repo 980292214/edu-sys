@@ -21,6 +21,7 @@ import javax.annotation.Resource;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.net.URLEncoder;
 import java.util.*;
@@ -56,11 +57,13 @@ public class UserController {
      * @return
      */
     @PostMapping("/login")
-    public Result<User> login(@RequestBody User user, HttpServletRequest request) {
+    public Result<User> login(@RequestBody User user, HttpServletRequest request, HttpSession httpSession) {
         User res = userService.login(user);
         request.getSession().setAttribute("user", res);
         MAP.put(res.getUsername(), res);
 
+        httpSession.setAttribute("user",user);
+        System.out.println(httpSession.getAttribute("user"));
         logService.log(StrUtil.format("用户 {} 登录系统", user.getUsername()));
         return Result.success(res);
     }
