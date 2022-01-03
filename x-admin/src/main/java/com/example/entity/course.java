@@ -16,10 +16,10 @@ public class course extends Model<course> {
     @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
-    /**
-      * 课程编号 
-      */
-    private String courseid;
+//    /**
+//      * 课程编号
+//      */
+//    private String courseid;
 
     /**
       * 课程名称 

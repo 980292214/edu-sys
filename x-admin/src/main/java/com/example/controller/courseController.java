@@ -87,7 +87,7 @@ public class courseController {
         List<course> all = courseService.list();
         for (course obj : all) {
             Map<String, Object> row = new LinkedHashMap<>();
-            row.put("课程编号", obj.getCourseid());
+            row.put("课程编号", obj.getId());
             row.put("课程名称", obj.getCoursename());
             row.put("教师编号", obj.getTeacherid());
             row.put("学时", obj.getPeriod());
@@ -126,7 +126,7 @@ public class courseController {
         List<course> saveList = new ArrayList<>();
         for (List<Object> row : lists) {
             course obj = new course();
-            obj.setCourseid((String) row.get(1));
+            obj.setId((Long) row.get(1));
             obj.setCoursename((String) row.get(2));
             obj.setTeacherid((String) row.get(3));
             obj.setPeriod((String) row.get(4));

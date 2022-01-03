@@ -113,8 +113,11 @@
         },
         methods: {
             handleSelect(key) {
-                this.src = key
-                location.search = "target=" + this.src
+                this.src = key;
+                if(this.src == 'course'){
+                    this.src = "stu"+this.src;
+                }
+                location.search = "target=" + this.src;
                 window.setInterval("reinitIframe()", 50);
             },
             handleCollapse() {

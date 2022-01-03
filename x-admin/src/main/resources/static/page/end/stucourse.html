@@ -5,7 +5,7 @@
     <meta HTTP-EQUIV="pragma" CONTENT="no-cache">
     <meta HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
     <meta HTTP-EQUIV="expires" CONTENT="0">
-    <title>课程信息表管理</title>
+    <title>选课信息</title>
     <link rel="stylesheet" href="../../css/element.css">
     <link rel="stylesheet" href="../../css/base.css">
 </head>
@@ -14,14 +14,14 @@
     <div style="padding-bottom: 10px">
             <el-breadcrumb separator-class="el-icon-arrow-right">
                 <el-breadcrumb-item @click.native="parent.changeIndex('index')">首页</el-breadcrumb-item>
-                <el-breadcrumb-item>课程信息表管理</el-breadcrumb-item>
+                <el-breadcrumb-item>选课信息</el-breadcrumb-item>
             </el-breadcrumb>
         </div>
 
         <div style="height: 1px; margin: 10px 0; background-color: white"></div>
     <el-input size='small' v-model="search" style="width: 20%;" suffix-icon="el-icon-search" placeholder="请输入名称按回车搜索"
               @keyup.enter.native="loadTable"></el-input>
-    <el-button size='small' @click="add" type="primary"  style="margin: 10px 0">发布课程</el-button>
+    <!--<el-button size='small' @click="add" type="primary"  style="margin: 10px 0">发布课程</el-button>-->
 <!--    <el-upload action="/files/upload" :on-success="successUpload" :show-file-list="false" style="display: inline-block">-->
 <!--        <el-button size='small' type="primary">导入</el-button>-->
 <!--    </el-upload>-->
@@ -38,20 +38,22 @@
         <el-table-column prop="moder" label="修读方式"></el-table-column>
         <el-table-column prop="number" label="课程人数"></el-table-column>
         <el-table-column prop="limitmajor" label="限选专业"></el-table-column>
-        <el-table-column prop="state" label="审核状态" :disabled="(user.role)=='1'"></el-table-column>
+        <!--<el-table-column prop="state" label="审核状态" :disabled="(user.role)=='1'"></el-table-column>-->
 
         <el-table-column
           fixed="right"
           label="操作"
           width="200">
+
         <template slot-scope="scope">
-          <el-button type="primary" icon="el-icon-edit" circle size='small' @click="edit(scope.row)"></el-button>
-          <el-popconfirm
-              @onConfirm="del(scope.row.id)"
-              title="确定删除？"
-          >
-            <el-button size='small' type="danger" icon="el-icon-delete" circle slot="reference" style="margin-left: 10px"></el-button>
-          </el-popconfirm>
+
+          <!--<el-button type="primary" icon="el-icon-edit" circle size='small' @click="edit(scope.row)"></el-button>-->
+          <!--<el-popconfirm-->
+              <!--@onConfirm="del(scope.row.id)"-->
+              <!--title="确定删除？"-->
+          <!--&gt;-->
+            <!--<el-button size='small' type="danger" icon="el-icon-delete" circle slot="reference" style="margin-left: 10px"></el-button>-->
+          <!--</el-popconfirm>-->
         </template>
         </el-table-column>
     </el-table>
