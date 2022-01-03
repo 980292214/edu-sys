@@ -88,7 +88,7 @@ public class teachersController {
         for (teachers obj : all) {
             Map<String, Object> row = new LinkedHashMap<>();
             row.put("年龄", obj.getAge());
-            row.put("院系", obj.getDepart());
+            row.put("院系", obj.getDepartid());
             row.put("邮箱", obj.getEmail());
             row.put("职称", obj.getJob());
             row.put("名字", obj.getName());
@@ -125,7 +125,7 @@ public class teachersController {
         for (List<Object> row : lists) {
             teachers obj = new teachers();
             obj.setAge((String) row.get(1));
-            obj.setDepart((String) row.get(2));
+            obj.setDepartid((String) row.get(2));
             obj.setEmail((String) row.get(3));
             obj.setJob((String) row.get(4));
             obj.setName((String) row.get(5));

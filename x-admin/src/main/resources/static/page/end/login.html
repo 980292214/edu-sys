@@ -108,10 +108,13 @@
                             });
                             sessionStorage.setItem("user", JSON.stringify(res.data));
                             setTimeout(() => {
-                                location.href= "/page/end/frame.html"
-                                // if (JSON.stringify(res.data.role).includes('1')) {
-                                //     location.href= "/page/end/frame.html"
-                                // }
+                                if (JSON.stringify(res.data.role).includes('3')) {
+                            location.href= "/page/end/stuframe.html"
+                            }else{
+                            location.href= "/page/end/frame.html"
+                        }
+
+
                                 // else {
                                 //     location.href= "/page/front/frame.html"
                                 // }

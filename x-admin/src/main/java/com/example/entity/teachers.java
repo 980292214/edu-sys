@@ -24,7 +24,7 @@ public class teachers extends Model<teachers> {
     /**
       * 院系 
       */
-    private String depart;
+    private String departid;
 
     /**
       * 邮箱 
