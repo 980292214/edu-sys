@@ -34,7 +34,7 @@
         <el-table-column prop="content" label="作业内容"></el-table-column>
         <el-table-column prop="attachment" label="作业附件"></el-table-column>
         <el-table-column prop="deadline" label="截至日期"></el-table-column>
-        <el-table-column prop="state" label="提交状态"></el-table-column>
+        <el-table-column prop="state" label="提交状态" :disabled="true"></el-table-column>
 
         <el-table-column
           fixed="right"
@@ -86,7 +86,7 @@
                 <el-input v-model="entity.deadline" autocomplete="off" style="width: 80%"></el-input>
             </el-form-item>
             <el-form-item label="提交状态" label-width="120px">
-                <el-input v-model="entity.state" autocomplete="off" style="width: 80%"></el-input>
+                <el-input v-model="entity.state" autocomplete="off" style="width: 80%" :disabled="true"></el-input>
             </el-form-item>
 
         </el-form>

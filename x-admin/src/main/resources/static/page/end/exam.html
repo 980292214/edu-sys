@@ -34,7 +34,7 @@
         <el-table-column prop="courseid" label="课程编号"></el-table-column>
         <el-table-column prop="classid" label="班级编号"></el-table-column>
         <el-table-column prop="teacherid" label="教师编号"></el-table-column>
-        <el-table-column prop="state" label="审核状态"></el-table-column>
+        <el-table-column prop="state" label="审核状态" :disabled="(user.role)=='1'"></el-table-column>
 
         <el-table-column
           fixed="right"
@@ -86,7 +86,7 @@
                 <el-input v-model="entity.teacherid" autocomplete="off" style="width: 80%"></el-input>
             </el-form-item>
             <el-form-item label="审核状态" label-width="120px">
-                <el-input v-model="entity.state" autocomplete="off" style="width: 80%"></el-input>
+                <el-input v-model="entity.state" autocomplete="off" style="width: 80%" :disabled="(user.role)=='1'"></el-input>
             </el-form-item>
 
         </el-form>
