@@ -8,11 +8,13 @@ import cn.hutool.poi.excel.ExcelUtil;
 import cn.hutool.poi.excel.ExcelWriter;
 import com.example.common.Result;
 import com.example.entity.students;
+import com.example.mapper.studentsMapper;
 import com.example.service.studentsService;
 import com.example.entity.User;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import com.example.exception.CustomException;
 import cn.hutool.core.util.StrUtil;
@@ -58,13 +60,20 @@ public class studentsController {
         return Result.success();
     }
 
-    @GetMapping("/{id}")
-    public Result<?> findById(@PathVariable Long id) {
-        return Result.success(studentsService.getById(id));
+    @Autowired
+    private studentsMapper stuMapper;
+
+    @GetMapping("/stu")
+    public Result<?> findById(@RequestParam("id") Long id) {
+        System.out.println("hhh");
+
+        return Result.success(stuMapper.getStu(id));
+
     }
 
     @GetMapping
     public Result<?> findAll() {
+        System.out.println("hhhh");
         return Result.success(studentsService.list());
     }
 
