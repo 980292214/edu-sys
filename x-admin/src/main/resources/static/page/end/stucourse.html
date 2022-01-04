@@ -177,7 +177,7 @@
                 location.href = "/page/end/login.html";
             },
             loadTable() {
-                $.get(urlBase + "/page?pageNum=" + this.pageNum + "&pageSize=" + this.pageSize + "&name=" + this.search).then(res => {
+                $.get(urlBase + "/stupage?pageNum=" + this.pageNum + "&pageSize=" + this.pageSize + "&name=" + this.search).then(res => {
                     this.tableData = res.data.records;
                     this.total = res.data.total;
                 })

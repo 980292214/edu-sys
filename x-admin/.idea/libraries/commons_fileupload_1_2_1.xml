@@ -1,8 +1,8 @@
 <component name="libraryTable">
   <library name="commons-fileupload-1.2.1">
     <CLASSES>
-      <root url="jar://E:/五邑大学/大四上/专业综合实训/commons-fileupload-1.2.1.jar!/" />
-      <root url="jar://E:/五邑大学/大四上/专业综合实训/commons-io-1.4.jar!/" />
+      <root url="jar://D:/BaiduNetdiskDownload/Javaweb/资料/资料/10-项目第三阶段/笔记/文件上传和下载/commons-fileupload-1.2.1.jar!/" />
+      <root url="jar://D:/BaiduNetdiskDownload/Javaweb/资料/资料/10-项目第三阶段/笔记/文件上传和下载/commons-io-1.4.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

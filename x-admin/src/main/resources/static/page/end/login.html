@@ -110,8 +110,10 @@
                             setTimeout(() => {
                                 if (JSON.stringify(res.data.role).includes('3')) {
                             location.href= "/page/end/stuframe.html"
-                            }else{
+                            }else if(JSON.stringify(res.data.role).includes('2')){
                             location.href= "/page/end/frame.html"
+                        }else{
+                            location.href= "/page/end/teaframe.html"
                         }
 
 

@@ -70,10 +70,10 @@
             <el-input v-model="info.job" :disabled="true"></el-input>
         </el-form-item>
         <el-form-item label="邮箱">
-            <el-input v-model="info.email" :disabled="true"></el-input>
+            <el-input v-model="info.email" :disabled="false"></el-input>
         </el-form-item>
         <el-form-item label="联系方式">
-            <el-input v-model="info.phone" :disabled="true"></el-input>
+            <el-input v-model="info.phone" :disabled="false"></el-input>
         </el-form-item>
     </el-form>
 </div>
@@ -102,7 +102,8 @@
                 depart:'',
                 major:'',
                 email:'',
-                starttime:''
+                starttime:'',
+                search: ''
             },
             role:'',
         },
@@ -116,13 +117,13 @@
         methods: {
             getInfo(username){
                 if(this.user.role[0] === 1){
-                    $.get("/api/teachers?id=" + username).then(res => {
+                    $.get("/api/teachers/tea?id=" + username).then(res => {
                         if (res.code === '0') {
                             this.info = res.data[0];
                         }
                     })
                 }else if(this.user.role[0] ===3){
-                    $.get("/api/students?id=" + username).then(res => {
+                    $.get("/api/students/stu?id=" + username).then(res => {
                         if (res.code === '0') {
                             this.info = res.data[0];
                         }
@@ -175,7 +176,7 @@
                 location.href = "/page/end/login.html";
             },
             loadTable() {
-                $.get(urlBase + "/page?pageNum=" + this.pageNum + "&pageSize=" + this.pageSize + "&name=" + this.search).then(res => {
+                $.get(urlBase + "/page").then(res => {
                     this.tableData = res.data.records;
                     this.total = res.data.total;
                 })
