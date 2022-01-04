@@ -16,15 +16,15 @@
 <div id="wrapper" v-cloak>
     <el-container>
         <el-aside :width="isCollapse ? '64px' : '200px'"
-                  style="background-color: #bdeddf; transition:width .5s; min-height: 100vh">
-            <div style="background-color: #bdeddf; height: 60px; line-height: 60px; text-align: center;
+                  style="background-color: black; transition:width .5s; min-height: 100vh">
+            <div style="background-color: black; height: 60px; line-height: 60px; text-align: center;
                 color: white; font-size: 20px;">
                 <transition name="el-fade-in-linear">
-                    <span name="fade" v-show="!isCollapse"><a href="/page/end/stuframe.html">教务系统</a></span>
+                    <span name="fade" v-show="!isCollapse"><a href="/page/end/frame.html">高校教务系统</a></span>
                 </transition>
             </div>
             <!-- 菜单 -->
-            <el-menu style="border: none;" background-color="#bdeddf"  text-color="black" active-text-color="#ffd04b"
+            <el-menu style="border: none;" background-color="black" text-color="#fff" active-text-color="#ffd04b"
                      :default-active="src" @select="handleSelect" :collapse="isCollapse">
                 <el-menu-item index="index">
                     <i class="el-icon-data-line"></i>
@@ -32,12 +32,12 @@
                 </el-menu-item>
                 <el-menu-item :index="item.path" v-for="item in user.permission">
                     <i :class=`el-icon-${item.icon}`></i>
-                    <span slot="title">{{item.name=="课程信息管理"?'学生选课':(item.name=="选课信息管理"?'课程成绩':item.name)}}</span>
+                    <span slot="title">{{item.name=="选课信息管理"?'成绩录入':item.name}}</span>
                 </el-menu-item>
             </el-menu>
         </el-aside>
         <el-container>
-            <el-header style="background-color: #bdeddf; line-height: 60px; color: white;">
+            <el-header style="background-color: black; line-height: 60px; color: white;">
                 <el-row>
                     <el-col :span="1">
                         <i style="font-size: 22px; cursor: pointer"
@@ -48,7 +48,7 @@
                         <el-dropdown>
                             <img :src=`/files/${user.avatar}`
                                  style="width: 40px; height: 40px; margin-right: 10px; border-radius: 50%">
-                            <el-dropdown-menu slot="dropdown" style="color: #bdeddf; cursor: pointer; text-align: center;">
+                            <el-dropdown-menu slot="dropdown" style="color: black; cursor: pointer; text-align: center;">
                                 <span @click="handleSelect('person')" style="display:inline-block; padding: 10px 0; width: 100px; ">个人信息</span>
                                 <span @click="logout" style="display:block; width: 100px;  ">退出</span>
                             </el-dropdown-menu>
@@ -113,14 +113,9 @@
         },
         methods: {
             handleSelect(key) {
-                this.src = key;
-                if(this.src == 'course'){
-                    this.src = "stu"+this.src;
-                }
-                if(this.src == 'select'){
-                    this.src = "stu"+this.src;
-                }
-                location.search = "target=" + this.src;
+                this.src = key
+
+                location.search = "target=" + this.src
                 window.setInterval("reinitIframe()", 50);
             },
             handleCollapse() {

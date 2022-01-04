@@ -7,12 +7,16 @@ import cn.hutool.core.io.IoUtil;
 import cn.hutool.poi.excel.ExcelUtil;
 import cn.hutool.poi.excel.ExcelWriter;
 import com.example.common.Result;
+import com.example.entity.course;
 import com.example.entity.select;
+import com.example.entity.students;
+import com.example.mapper.studentsMapper;
 import com.example.service.selectService;
 import com.example.entity.User;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import com.example.exception.CustomException;
 import cn.hutool.core.util.StrUtil;
@@ -21,6 +25,7 @@ import javax.annotation.Resource;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.net.URLEncoder;
 import java.util.*;
@@ -73,6 +78,22 @@ public class selectController {
                                                 @RequestParam(required = false, defaultValue = "1") Integer pageNum,
                                                 @RequestParam(required = false, defaultValue = "10") Integer pageSize) {
         LambdaQueryWrapper<select> query = Wrappers.<select>lambdaQuery().orderByDesc(select::getId);
+        if (StrUtil.isNotBlank(name)) {
+            query.like(select::getId, name);
+        }
+        return Result.success(selectService.page(new Page<>(pageNum, pageSize), query));
+    }
+    @Autowired
+    private studentsMapper stuMapper;
+
+    @GetMapping("/stupage")
+    public Result<?> findstuPage(@RequestParam(required = false, defaultValue = "") String name,
+                                 @RequestParam(required = false, defaultValue = "1") Integer pageNum,
+                                 @RequestParam(required = false, defaultValue = "10") Integer pageSize, HttpSession httpSession) {
+        User user = (User)httpSession.getAttribute("user");
+
+        students stu = stuMapper.getStudentid(user.getUsername());
+        LambdaQueryWrapper<select> query = Wrappers.<select>lambdaQuery().orderByDesc(select::getId).eq(select::getStudentid,stu.getStudentid());
         if (StrUtil.isNotBlank(name)) {
             query.like(select::getId, name);
         }
