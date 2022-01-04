@@ -44,12 +44,12 @@
 
     <el-dialog title="课程反馈" :visible.sync="dialogFormVisible" width="40%"
                :close-on-click-modal="false">
-        <el-form :model="entity">
-            <el-form-item label="课程名称" label-width="120px">
-                <el-input v-model="entity.age" autocomplete="off" style="width: 80%" :disabled="true"></el-input>
+        <el-form :model="feedback">
+            <el-form-item label="课程id" label-width="120px">
+                <el-input v-model="feedback.coursename" autocomplete="off" style="width: 80%" :disabled="true"></el-input>
             </el-form-item>
             <el-form-item label="反馈内容" label-width="120px">
-                <el-input type="textarea" v-model="entity.departid" autocomplete="off" style="width: 80%"></el-input>
+                <el-input type="textarea" v-model="feedback.content" autocomplete="off" style="width: 80%"></el-input>
             </el-form-item>
         </el-form>
         <div slot="footer" class="dialog-footer">
@@ -71,7 +71,9 @@
     new Vue({
         el: "#wrapper",
         data: {
-            selects:'',
+            addfeedback: {},
+            feedback:'',
+            selects: '',
             options: [],
             fileList: [],
             user: {},
@@ -95,7 +97,6 @@
                 $.get("/api/select/student/" + studentId).then(res => {
                     if (res.code === '0') {
                         this.selects = res.data;
-                        console.log(this.selects);
                     }
                 })
             },
@@ -155,12 +156,16 @@
                 this.dialogFormVisible = true;
             },
             save() {
-                let type = this.entity.id ? "PUT" : "POST";
+                this.addfeedback.courseid = this.feedback.courseid
+                this.addfeedback.studentid = this.feedback.studentid;
+                this.addfeedback.content = this.feedback.content;
+                // let type = this.entity.id ? "PUT" : "POST";
                 $.ajax({
-                    url: urlBase,
-                    type: type,
+                    url: "http://localhost:9998/api/feedback",
+                    type: 'POST',
                     contentType: "application/json",
-                    data: JSON.stringify(this.entity)
+
+                    data: JSON.stringify(this.addfeedback)
                 }).then(res => {
                     if (res.code === '0') {
                         this.$message({
@@ -178,7 +183,7 @@
                 })
             },
             edit(obj) {
-                this.entity = JSON.parse(JSON.stringify(obj));
+                this.feedback = JSON.parse(JSON.stringify(obj));
                 this.fileList = [];
                 this.dialogFormVisible = true;
             },
