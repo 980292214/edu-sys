@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="commons-fileupload-1.2.1">
+    <CLASSES>
+      <root url="jar://E:/五邑大学/大四上/专业综合实训/commons-fileupload-1.2.1.jar!/" />
+      <root url="jar://E:/五邑大学/大四上/专业综合实训/commons-io-1.4.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
