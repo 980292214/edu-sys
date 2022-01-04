@@ -150,4 +150,9 @@ public class selectController {
         return Result.success();
     }
 
+    @GetMapping("/student/{studentId}")
+    public Result<?> findByStudentId(@PathVariable String studentId) {
+        return Result.success(selectService.findByStudentId(studentId));
+    }
+
 }
