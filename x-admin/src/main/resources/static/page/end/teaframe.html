@@ -114,8 +114,12 @@
         methods: {
             handleSelect(key) {
                 this.src = key
+                if(this.src=='feedback'){
+                    this.src = 'tea'+this.src
+                }
 
                 location.search = "target=" + this.src
+
                 window.setInterval("reinitIframe()", 50);
             },
             handleCollapse() {

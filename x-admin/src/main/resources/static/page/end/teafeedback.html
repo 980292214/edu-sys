@@ -5,7 +5,7 @@
     <meta HTTP-EQUIV="pragma" CONTENT="no-cache">
     <meta HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
     <meta HTTP-EQUIV="expires" CONTENT="0">
-    <title>选课信息表管理</title>
+    <title>反馈信息表管理</title>
     <link rel="stylesheet" href="../../css/element.css">
     <link rel="stylesheet" href="../../css/base.css">
 </head>
@@ -14,26 +14,23 @@
     <div style="padding-bottom: 10px">
             <el-breadcrumb separator-class="el-icon-arrow-right">
                 <el-breadcrumb-item @click.native="parent.changeIndex('index')">首页</el-breadcrumb-item>
-                <el-breadcrumb-item>成绩查询</el-breadcrumb-item>
+                <el-breadcrumb-item>反馈信息表管理</el-breadcrumb-item>
             </el-breadcrumb>
         </div>
 
         <div style="height: 1px; margin: 10px 0; background-color: white"></div>
-    <!--<el-input size='small' v-model="search" style="width: 20%;" suffix-icon="el-icon-search" placeholder="请输入名称按回车搜索"-->
-              <!--@keyup.enter.native="loadTable"></el-input>-->
-    <!--<el-button size='small' @click="add" type="primary"  style="margin: 10px 0">新增</el-button>-->
+    <el-input size='small' v-model="search" style="width: 20%;" suffix-icon="el-icon-search" placeholder="请输入名称按回车搜索"
+              @keyup.enter.native="loadTable"></el-input>
+    <el-button size='small' @click="add" type="primary"  style="margin: 10px 0">新增</el-button>
 <!--    <el-upload action="/files/upload" :on-success="successUpload" :show-file-list="false" style="display: inline-block">-->
 <!--        <el-button size='small' type="primary">导入</el-button>-->
 <!--    </el-upload>-->
 <!--    <el-button size='small' @click="exp" type="primary"  style="margin: 10px 0">导出</el-button>-->
     <el-table :data="tableData" border stripe style="width: 100%">
-        <!--<el-table-column prop="id" label="ID" width="100"> </el-table-column>-->
-        <el-table-column prop="studentid" label="学号"></el-table-column>
+        <el-table-column prop="id" label="反馈编号" width="100"> </el-table-column>
         <el-table-column prop="courseid" label="课程编号"></el-table-column>
-        <!--<el-table-column prop="coursename" label="课程名称"></el-table-column>-->
-        <el-table-column prop="teacherid" label="教师编号"></el-table-column>
-        <!--<el-table-column prop="teachername" label="教师名称"></el-table-column>-->
-        <el-table-column prop="grade" label="课程成绩"></el-table-column>
+        <el-table-column prop="studentid" label="学号"></el-table-column>
+        <el-table-column prop="content" label="反馈内容"></el-table-column>
 
         <!--<el-table-column-->
           <!--fixed="right"-->
@@ -63,26 +60,17 @@
         </el-pagination>
     </div>
 
-    <el-dialog title="选课信息表信息" :visible.sync="dialogFormVisible" width="40%"
+    <el-dialog title="反馈信息表信息" :visible.sync="dialogFormVisible" width="40%"
                :close-on-click-modal="false">
         <el-form :model="entity">
-            <el-form-item label="学号" label-width="120px">
-                <el-input v-model="entity.studentid" autocomplete="off" style="width: 80%"></el-input>
-            </el-form-item>
             <el-form-item label="课程编号" label-width="120px">
                 <el-input v-model="entity.courseid" autocomplete="off" style="width: 80%"></el-input>
             </el-form-item>
-            <el-form-item label="课程名称" label-width="120px">
-                <el-input v-model="entity.coursename" autocomplete="off" style="width: 80%"></el-input>
+            <el-form-item label="学号" label-width="120px">
+                <el-input v-model="entity.studentid" autocomplete="off" style="width: 80%"></el-input>
             </el-form-item>
-            <el-form-item label="教师编号" label-width="120px">
-                <el-input v-model="entity.teacherid" autocomplete="off" style="width: 80%"></el-input>
-            </el-form-item>
-            <el-form-item label="教师名称" label-width="120px">
-                <el-input v-model="entity.teachername" autocomplete="off" style="width: 80%"></el-input>
-            </el-form-item>
-            <el-form-item label="课程成绩" label-width="120px">
-                <el-input v-model="entity.grade" autocomplete="off" style="width: 80%"></el-input>
+            <el-form-item label="反馈内容" label-width="120px">
+                <el-input v-model="entity.content" autocomplete="off" style="width: 80%"></el-input>
             </el-form-item>
 
         </el-form>
@@ -101,7 +89,7 @@
 
 <script>
 
-    let urlBase = "/api/select/";
+    let urlBase = "/api/feedback/";
     new Vue({
         el: "#wrapper",
         data: {
@@ -128,7 +116,7 @@
                 console.log(res)
             },
             successUpload(value) {
-                $.get("/api/select/upload/" + value.data).then(res => {
+                $.get("/api/feedback/upload/" + value.data).then(res => {
                     if (res.code === '0') {
                         this.$message({
                             message: "导入成功",
