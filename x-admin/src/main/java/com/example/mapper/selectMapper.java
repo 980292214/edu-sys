@@ -14,5 +14,5 @@ public interface selectMapper extends BaseMapper<select> {
 //            "WHERE s.`studentid`=#{studentId,jdbcType=VARCHAR}")
     public List findByStudentId(@Param("studentId") String studentId);
 
-    public List noselectedCourse(@Param("studentId") String studentId);
+    public List noselectedCourse(@Param("studentId") String studentId,@Param("major") String major);
 }

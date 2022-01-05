@@ -23,8 +23,8 @@ public class selectService extends ServiceImpl<selectMapper, select> {
         return courses;
     }
 
-    public List noselectedCourse(String studentId){
-        List courses = selectMapper.noselectedCourse(studentId);
+    public List noselectedCourse(String studentId,String major){
+        List courses = selectMapper.noselectedCourse(studentId,major);
         return courses;
     }
 }

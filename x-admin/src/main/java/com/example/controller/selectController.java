@@ -16,6 +16,7 @@ import com.example.entity.User;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.example.service.studentsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import com.example.exception.CustomException;
@@ -39,6 +40,9 @@ public class selectController {
     @Resource
     private HttpServletRequest request;
 
+    @Autowired
+    private studentsMapper stuMapper;
+
     public User getUser() {
         User user = (User) request.getSession().getAttribute("user");
         if (user == null) {
@@ -46,10 +50,15 @@ public class selectController {
         }
         return user;
     }
+    @Autowired
+    private studentsService stuService;
+
 
     @GetMapping("/noselect/{studentId}")
-    public Result<?> noselectedCourse(@PathVariable String studentId){
-        List courses = selectService.noselectedCourse(studentId);
+    public Result<?> noselectedCourse(@PathVariable String studentId,HttpSession httpSession){
+        User user = (User)httpSession.getAttribute("user");
+        students stu = stuMapper.getStudentid(user.getUsername());
+        List courses = selectService.noselectedCourse(studentId,stu.getMajor());
         return Result.success(courses);
     }
 
@@ -89,8 +98,7 @@ public class selectController {
         }
         return Result.success(selectService.page(new Page<>(pageNum, pageSize), query));
     }
-    @Autowired
-    private studentsMapper stuMapper;
+
 
     @GetMapping("/stupage")
     public Result<?> findstuPage(@RequestParam(required = false, defaultValue = "") String name,

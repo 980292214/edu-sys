@@ -78,10 +78,14 @@ public class courseController {
         return Result.success(courseService.list());
     }
 
+
+
     @GetMapping("/page")
     public Result<?> findPage(@RequestParam(required = false, defaultValue = "") String name,
                                                 @RequestParam(required = false, defaultValue = "1") Integer pageNum,
-                                                @RequestParam(required = false, defaultValue = "10") Integer pageSize) {
+                                                @RequestParam(required = false, defaultValue = "10") Integer pageSize,HttpSession httpSession) {
+        User user = (User)httpSession.getAttribute("user");
+
         LambdaQueryWrapper<course> query = Wrappers.<course>lambdaQuery().orderByDesc(course::getId);
         if (StrUtil.isNotBlank(name)) {
             query.like(course::getCoursename, name);
