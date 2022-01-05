@@ -5,7 +5,7 @@
     <meta HTTP-EQUIV="pragma" CONTENT="no-cache">
     <meta HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
     <meta HTTP-EQUIV="expires" CONTENT="0">
-        <title>个人信息</title>
+    <title>个人信息</title>
     <link rel="stylesheet" href="../../css/element.css">
     <link rel="stylesheet" href="../../css/base.css">
 </head>
@@ -21,6 +21,42 @@
     <div style="height: 1px; margin: 10px 0; background-color: white"></div>
     <!--是学生-->
     <el-form ref="form" :model="info" label-width="80px" v-if="this.user.role[0]===3">
+           <!-- <el-descriptions-item>
+                <template slot="label">
+                    <i class="el-icon-user"></i>
+                    学号
+                </template>
+                {{info.studentid}}
+            </el-descriptions-item>
+            <el-descriptions-item>
+                <template slot="label">
+                    <i class="el-icon-mobile-phone"></i>
+                    手机号
+                </template>
+                18100000000
+            </el-descriptions-item>
+            <el-descriptions-item>
+                <template slot="label">
+                    <i class="el-icon-location-outline"></i>
+                    居住地
+                </template>
+                苏州市
+            </el-descriptions-item>
+            <el-descriptions-item>
+                <template slot="label">
+                    <i class="el-icon-tickets"></i>
+                    备注
+                </template>
+                <el-tag size="small">学校</el-tag>
+            </el-descriptions-item>
+            <el-descriptions-item>
+                <template slot="label">
+                    <i class="el-icon-office-building"></i>
+                    联系地址
+                </template>
+                江苏省苏州市吴中区吴中大道 1188 号
+            </el-descriptions-item>-->
+
         <el-form-item label="学号">
             <el-input v-model="info.studentid" :disabled="true"></el-input>
         </el-form-item>
@@ -43,10 +79,10 @@
             <el-input v-model="info.depart" :disabled="true"></el-input>
         </el-form-item>
         <el-form-item label="邮箱">
-            <el-input v-model="info.email" ></el-input>
+            <el-input v-model="info.email"></el-input>
         </el-form-item>
         <el-form-item label="联系方式">
-            <el-input v-model="info.phone" ></el-input>
+            <el-input v-model="info.phone"></el-input>
         </el-form-item>
         <el-form-item label="入学时间">
             <el-input v-model="info.starttime" :disabled="true"></el-input>
@@ -90,22 +126,23 @@
     new Vue({
         el: "#wrapper",
         data: {
-            user:'',
-            info:'',
+            user: '',
+            info: '',
             form: {
-                studentid:'',
-                name:'',
-                classe:'',
-                phone:'',
-                sex:'',
-                age:'',
-                depart:'',
-                major:'',
-                email:'',
-                starttime:'',
+                studentid: '',
+                name: '',
+                classe: '',
+                phone: '',
+                sex: '',
+                age: '',
+                depart: '',
+                major: '',
+                email: '',
+                starttime: '',
                 search: ''
             },
-            role:'',
+            role: '',
+            size: ''
         },
         created() {
             this.user = sessionStorage.getItem("user") ? JSON.parse(sessionStorage.getItem("user")) : {};
@@ -115,14 +152,14 @@
             this.getInfo(this.user.username);
         },
         methods: {
-            getInfo(username){
-                if(this.user.role[0] === 1){
+            getInfo(username) {
+                if (this.user.role[0] === 1) {
                     $.get("/api/teachers/tea?id=" + username).then(res => {
                         if (res.code === '0') {
                             this.info = res.data;
                         }
                     })
-                }else if(this.user.role[0] ===3){
+                } else if (this.user.role[0] === 3) {
                     $.get("/api/students/stu?id=" + username).then(res => {
                         if (res.code === '0') {
                             this.info = res.data;
@@ -141,7 +178,7 @@
                 this.$message.warning(`当前限制选择 3 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`);
             },
             beforeRemove(file, fileList) {
-                return this.$confirm(`确定移除 ${ file.name }？`);
+                return this.$confirm(`确定移除 ${file.name}？`);
             },
             onSubmit() {
                 console.log('submit!');

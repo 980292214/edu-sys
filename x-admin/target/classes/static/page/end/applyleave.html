@@ -26,10 +26,10 @@
             <template>
                 <el-select v-model="value" placeholder="请选择">
                     <el-option
-                            v-for="item in options"
-                            :key="item.value"
-                            :label="item.label"
-                            :value="item.value">
+                            v-for="item in teachers"
+                            :key="item.id"
+                            :label="item.name"
+                            :value="item.id">
                     </el-option>
                 </el-select>
             </template>
@@ -65,6 +65,9 @@
                 <el-button size="small" type="primary">点击上传</el-button>
                 <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
             </el-upload>
+        </el-form-item>
+        <el-form-item label="审核状态">
+            <el-tag>未审核</el-tag>
         </el-form-item>
 
         <el-form-item>
@@ -115,22 +118,7 @@
             },
             value1: [new Date(2000, 10, 10, 10, 10), new Date(2000, 10, 11, 10, 10)],
             value2: '',
-            options: [{
-                value: '选项1',
-                label: '黄金糕'
-            }, {
-                value: '选项2',
-                label: '双皮奶'
-            }, {
-                value: '选项3',
-                label: '蚵仔煎'
-            }, {
-                value: '选项4',
-                label: '龙须面'
-            }, {
-                value: '选项5',
-                label: '北京烤鸭'
-            }],
+            teachers:'',
             value: '',
             form: {
                 course: '',
@@ -149,9 +137,19 @@
         },
         created() {
             this.user = sessionStorage.getItem("user") ? JSON.parse(sessionStorage.getItem("user")) : {};
+            this.getTeachers();
             this.loadTable();
         },
         methods: {
+            //获取所有教师
+            getTeachers(){
+                $.get("/api/teachers/").then(res => {
+                    if (res.code === '0') {
+                        this.teachers = res.data;
+                        this.loadTable()
+                    }
+                })
+            },
             handleRemove(file, fileList) {
                 console.log(file, fileList);
             },
