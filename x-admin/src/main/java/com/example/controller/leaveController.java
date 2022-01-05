@@ -58,9 +58,15 @@ public class leaveController {
         return Result.success();
     }
 
+
     @GetMapping("/{id}")
     public Result<?> findById(@PathVariable Long id) {
         return Result.success(leaveService.getById(id));
+    }
+
+    @GetMapping("/teachers/{teacherId}")
+    public Result<?> findByTeacherId(@PathVariable String teacherId) {
+        return Result.success(leaveService.findByTeacherId(teacherId));
     }
 
     @GetMapping
