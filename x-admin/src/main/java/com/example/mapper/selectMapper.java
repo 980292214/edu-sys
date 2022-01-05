@@ -14,11 +14,11 @@ public interface selectMapper extends BaseMapper<select> {
 //            "WHERE s.`studentid`=#{studentId,jdbcType=VARCHAR}")
     public List findByStudentId(@Param("studentId") String studentId);
 
-<<<<<<< HEAD
+
     public List noselectedCourse(@Param("studentId") String studentId,@Param("major") String major);
-=======
+
     public List noselectedCourse(@Param("studentId") String studentId);
     public List selectedCourse(@Param("studentId") String studentId);
     public int deleteSelectedCourse(@Param("courseId") String courseId,@Param("studentId") String studentId);
->>>>>>> c2ccab2a489992d45f97ba0ee056e0df6f24f234
+
 }

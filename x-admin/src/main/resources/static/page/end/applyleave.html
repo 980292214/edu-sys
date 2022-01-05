@@ -20,16 +20,16 @@
 
     <div style="height: 1px; margin: 10px 0; background-color: white"></div>
 
-    <el-form ref="form" :model="form" label-width="80px">
+    <el-form ref="leave" :model="leave" label-width="80px">
 
         <el-form-item label="审批老师">
             <template>
-                <el-select v-model="teacherid" placeholder="请选择">
+                <el-select v-model="leave.teacherid" placeholder="请选择">
                     <el-option
                             v-for="item in teachers"
-                            :key="item.id"
+                            :key="item.teacherid"
                             :label="item.name"
-                            :value="item.id">
+                            :value="item.teacherid">
                     </el-option>
                 </el-select>
             </template>
@@ -49,11 +49,10 @@
             </template>
         </el-form-item>
         <el-form-item label="请假理由">
-            <el-input type="textarea" v-model="reason"></el-input>
+            <el-input type="textarea" v-model="leave.reason"></el-input>
         </el-form-item>
         <el-form-item label="上传附件">
             <el-upload
-                    ref="upload"
                     accept=".jpg,.jpeg,.png,.gif,.txt,.pdf,.JPG,.JPEG,.PBG,.GIF,.BMP,.PDF"
                     class="upload-demo"
                     action="http://localhost:9998/upload"
@@ -63,17 +62,16 @@
                     multiple
                     :limit="3"
                     :on-exceed="handleExceed"
-                    :file-list="fileList">
+                    :on-success="onSuccessUpload"
+                    :file-list="leave.attachment">
                 <el-button size="small" type="primary">点击上传</el-button>
                 <div slot="tip" class="el-upload__tip">上传请假证明相关附件</div>
             </el-upload>
         </el-form-item>
-        <el-form-item label="审核状态">
-            <el-tag>未审核</el-tag>
-        </el-form-item>
+
 
         <el-form-item>
-            <el-button type="primary" @click="onSubmit">提交</el-button>
+            <el-button type="primary" @click="onSubmit()">提交</el-button>
             <el-button>取消</el-button>
         </el-form-item>
     </el-form>
@@ -91,12 +89,10 @@
     new Vue({
         el: "#wrapper",
         data: {
-            pickerOptions: {
-
-            },
-            time: [new Date(2000, 10, 10, 10, 10), new Date(2000, 10, 11, 10, 10)],
-            teachers:'',
-            teacherid:'',
+            pickerOptions: {},
+            time: '',
+            teachers: '',
+            teacherid: '',
             value: '',
             leave: {
                 teacherid: '',
@@ -104,18 +100,19 @@
                 starttime: '',
                 endtime: '',
                 reason: '',
-                attachment:''
+                attachment: []
             },
             fileList: []
         },
         created() {
             this.user = sessionStorage.getItem("user") ? JSON.parse(sessionStorage.getItem("user")) : {};
+            this.leave.studentid = this.user.username
             this.getTeachers();
             this.loadTable();
         },
         methods: {
             //获取所有教师
-            getTeachers(){
+            getTeachers() {
                 $.get("/api/teachers/").then(res => {
                     if (res.code === '0') {
                         this.teachers = res.data;
@@ -123,11 +120,16 @@
                     }
                 })
             },
+            onSuccessUpload(res, file, fileList) {
+                this.leave.attachment = file.name;
+            },
             handleRemove(file, fileList) {
                 console.log(file, fileList);
             },
             handlePreview(file) {
-                console.log(file);
+                // this.leave.attachment=file.name;
+                console.log(file.name)
+                return file.name;
             },
             handleExceed(files, fileList) {
                 this.$message.warning(`当前限制选择 3 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`);
@@ -136,7 +138,31 @@
                 return this.$confirm(`确定移除 ${file.name}？`);
             },
             onSubmit() {
-                console.log('submit!');
+                // console.log(this.fileList.length)
+                this.leave.starttime = this.time[0];
+                this.leave.endtime = this.time[1];
+                $.ajax({
+                    url: "http://localhost:9998/api/leave",
+                    type: 'POST',
+                    contentType: "application/json",
+
+                    data: JSON.stringify(this.leave)
+                }).then(res => {
+                    if (res.code === '0') {
+                        this.$message({
+                            message: "保存成功",
+                            type: "success",
+
+                        });
+                    } else {
+                        this.$message({
+                            message: res.msg,
+                            type: "error"
+                        })
+                    }
+                    alert("申请成功");
+                    location.reload()
+                })
             },
             fileSuccessUpload(res) {
                 this.entity.file = "http://localhost:9999/files/" + res.data;
