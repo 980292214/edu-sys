@@ -53,6 +53,18 @@ public class selectController {
         return Result.success(courses);
     }
 
+    @GetMapping("/select/{studentId}")
+    public Result<?> selectedCourse(@PathVariable String studentId){
+        List courses = selectService.selectedCourse(studentId);
+        return Result.success(courses);
+    }
+
+    @GetMapping("/delete/{courseId}/{studentId}")
+    public Result<?> deleteSelectedCourse(@PathVariable String courseId,@PathVariable String studentId){
+        int rows = selectService.deleteSelectedCourse(courseId,studentId);
+        return Result.success(rows);
+    }
+
     @PostMapping
     public Result<?> save(@RequestBody select select) {
         return Result.success(selectService.save(select));
