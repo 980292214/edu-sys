@@ -11,5 +11,12 @@
      SELECT * FROM t_course
     WHERE id NOT IN (SELECT courseid AS id FROM t_select WHERE studentid=#{studentId}) and limitmajor = #{major} and moder = '选修' ;
     </select>
+    <select id="selectedCourse"  resultType="java.util.Map">
+     SELECT * FROM t_course
+    WHERE id IN (SELECT courseid AS id FROM t_select WHERE studentid=#{studentId});
+    </select>
 
+    <delete id="deleteSelectedCourse">
+        DELETE FROM t_select WHERE studentid=#{studentId} AND courseid=#{courseId};
+    </delete>
 </mapper>
