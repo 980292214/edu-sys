@@ -13,4 +13,6 @@ public interface selectMapper extends BaseMapper<select> {
 //            "INNER JOIN t_teachers AS t ON c.`teacherid`=t.`teacherid` " +
 //            "WHERE s.`studentid`=#{studentId,jdbcType=VARCHAR}")
     public List findByStudentId(@Param("studentId") String studentId);
+
+    public List noselectedCourse(@Param("studentId") String studentId);
 }

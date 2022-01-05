@@ -7,5 +7,9 @@
      INNER JOIN t_teachers AS t ON c.`teacherid`=t.`teacherid`
      WHERE s.`studentid`=#{studentId}
     </select>
+    <select id="noselectedCourse"  resultType="java.util.Map">
+     SELECT * FROM t_course
+    WHERE id NOT IN (SELECT courseid AS id FROM t_select WHERE studentid=#{studentId});
+    </select>
 
 </mapper>
