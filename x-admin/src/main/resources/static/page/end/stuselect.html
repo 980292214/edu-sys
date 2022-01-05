@@ -27,10 +27,12 @@
 <!--    </el-upload>-->
 <!--    <el-button size='small' @click="exp" type="primary"  style="margin: 10px 0">导出</el-button>-->
     <el-table :data="tableData" border stripe style="width: 100%">
-<!--        <el-table-column prop="id" label="ID" width="100"> </el-table-column>-->
-        <el-table-column prop="studentid" label="学号" sortable></el-table-column>
-        <el-table-column prop="courseid" label="课程编号" sortable></el-table-column>
-        <el-table-column prop="teacherid" label="教师编号" sortable></el-table-column>
+        <!--<el-table-column prop="id" label="ID" width="100"> </el-table-column>-->
+        <el-table-column prop="studentid" label="学号"></el-table-column>
+        <!--<el-table-column prop="courseid" label="课程编号"></el-table-column>-->
+        <el-table-column prop="coursename" label="课程名称"></el-table-column>
+        <!--<el-table-column prop="teacherid" label="教师编号"></el-table-column>-->
+        <el-table-column prop="teachername" label="教师名称"></el-table-column>
         <el-table-column prop="grade" label="课程成绩"></el-table-column>
 
         <!--<el-table-column-->
@@ -70,8 +72,14 @@
             <el-form-item label="课程编号" label-width="120px">
                 <el-input v-model="entity.courseid" autocomplete="off" style="width: 80%"></el-input>
             </el-form-item>
+            <el-form-item label="课程名称" label-width="120px">
+                <el-input v-model="entity.coursename" autocomplete="off" style="width: 80%"></el-input>
+            </el-form-item>
             <el-form-item label="教师编号" label-width="120px">
                 <el-input v-model="entity.teacherid" autocomplete="off" style="width: 80%"></el-input>
+            </el-form-item>
+            <el-form-item label="教师名称" label-width="120px">
+                <el-input v-model="entity.teachername" autocomplete="off" style="width: 80%"></el-input>
             </el-form-item>
             <el-form-item label="课程成绩" label-width="120px">
                 <el-input v-model="entity.grade" autocomplete="off" style="width: 80%"></el-input>
@@ -144,7 +152,7 @@
                 location.href = "/page/end/login.html";
             },
             loadTable() {
-                $.get(urlBase + "/stupage?pageNum=" + this.pageNum + "&pageSize=" + this.pageSize + "&name=" + this.search).then(res => {
+                $.get(urlBase + "/page?pageNum=" + this.pageNum + "&pageSize=" + this.pageSize + "&name=" + this.search).then(res => {
                     this.tableData = res.data.records;
                     this.total = res.data.total;
                 })

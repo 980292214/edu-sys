@@ -47,6 +47,12 @@ public class selectController {
         return user;
     }
 
+    @GetMapping("/noselect/{studentId}")
+    public Result<?> noselectedCourse(@PathVariable String studentId){
+        List courses = selectService.noselectedCourse(studentId);
+        return Result.success(courses);
+    }
+
     @PostMapping
     public Result<?> save(@RequestBody select select) {
         return Result.success(selectService.save(select));

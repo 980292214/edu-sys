@@ -38,7 +38,7 @@
             <template>
                 <div class="block">
                     <el-date-picker
-                            v-model="value1"
+                            v-model="time"
                             type="datetimerange"
                             range-separator="至"
                             start-placeholder="开始日期"
@@ -53,8 +53,10 @@
         </el-form-item>
         <el-form-item label="上传附件">
             <el-upload
+                    ref="upload"
+                    accept=".jpg,.jpeg,.png,.gif,.bmp,.pdf,.JPG,.JPEG,.PBG,.GIF,.BMP,.PDF"
                     class="upload-demo"
-                    action="https://jsonplaceholder.typicode.com/posts/"
+                    action="http://localhost:9998/upload"
                     :on-preview="handlePreview"
                     :on-remove="handleRemove"
                     :before-remove="beforeRemove"
@@ -63,7 +65,7 @@
                     :on-exceed="handleExceed"
                     :file-list="fileList">
                 <el-button size="small" type="primary">点击上传</el-button>
-                <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
+                <div slot="tip" class="el-upload__tip">上传请假证明相关附件</div>
             </el-upload>
         </el-form-item>
         <el-form-item label="审核状态">
@@ -90,34 +92,9 @@
         el: "#wrapper",
         data: {
             pickerOptions: {
-                shortcuts: [{
-                    text: '最近一周',
-                    onClick(picker) {
-                        const end = new Date();
-                        const start = new Date();
-                        start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
-                        picker.$emit('pick', [start, end]);
-                    }
-                }, {
-                    text: '最近一个月',
-                    onClick(picker) {
-                        const end = new Date();
-                        const start = new Date();
-                        start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
-                        picker.$emit('pick', [start, end]);
-                    }
-                }, {
-                    text: '最近三个月',
-                    onClick(picker) {
-                        const end = new Date();
-                        const start = new Date();
-                        start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
-                        picker.$emit('pick', [start, end]);
-                    }
-                }]
+
             },
-            value1: [new Date(2000, 10, 10, 10, 10), new Date(2000, 10, 11, 10, 10)],
-            value2: '',
+            time: [new Date(2000, 10, 10, 10, 10), new Date(2000, 10, 11, 10, 10)],
             teachers:'',
             value: '',
             form: {
@@ -127,13 +104,7 @@
                 studentid: '',
                 name: ''
             },
-            fileList: [{
-                name: 'food.jpeg',
-                url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'
-            }, {
-                name: 'food2.jpeg',
-                url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'
-            }]
+            fileList: []
         },
         created() {
             this.user = sessionStorage.getItem("user") ? JSON.parse(sessionStorage.getItem("user")) : {};

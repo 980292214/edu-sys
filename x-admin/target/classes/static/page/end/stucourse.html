@@ -5,7 +5,7 @@
     <meta HTTP-EQUIV="pragma" CONTENT="no-cache">
     <meta HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
     <meta HTTP-EQUIV="expires" CONTENT="0">
-    <title>选课信息</title>
+    <title>学生选课</title>
     <link rel="stylesheet" href="../../css/element.css">
     <link rel="stylesheet" href="../../css/base.css">
 </head>
@@ -14,7 +14,7 @@
     <div style="padding-bottom: 10px">
             <el-breadcrumb separator-class="el-icon-arrow-right">
                 <el-breadcrumb-item @click.native="parent.changeIndex('index')">首页</el-breadcrumb-item>
-                <el-breadcrumb-item>选课信息</el-breadcrumb-item>
+                <el-breadcrumb-item>未选课程</el-breadcrumb-item>
             </el-breadcrumb>
         </div>
 
@@ -26,7 +26,7 @@
 <!--        <el-button size='small' type="primary">导入</el-button>-->
 <!--    </el-upload>-->
 <!--    <el-button size='small' @click="exp" type="primary"  style="margin: 10px 0">导出</el-button>-->
-    <el-table :data="tableData" border stripe style="width: 100%">
+    <el-table :data="entity" border stripe style="width: 100%">
         <el-table-column prop="id" label="课程编号" width="100"> </el-table-column>
         <el-table-column prop="coursename" label="课程名称"></el-table-column>
         <el-table-column prop="teacherid" label="教师编号"></el-table-column>
@@ -41,20 +41,21 @@
         <!--<el-table-column prop="state" label="审核状态" :disabled="(user.role)=='1'"></el-table-column>-->
 
         <el-table-column
-          fixed="right"
-          label="操作"
-          width="200">
-
-        <template slot-scope="scope">
-
-          <!--<el-button type="primary" icon="el-icon-edit" circle size='small' @click="edit(scope.row)"></el-button>-->
-          <!--<el-popconfirm-->
-              <!--@onConfirm="del(scope.row.id)"-->
-              <!--title="确定删除？"-->
-          <!--&gt;-->
-            <!--<el-button size='small' type="danger" icon="el-icon-delete" circle slot="reference" style="margin-left: 10px"></el-button>-->
-          <!--</el-popconfirm>-->
-        </template>
+                fixed="right"
+                label="操作"
+                >
+            <template slot-scope="scope">
+            <el-button type="primary" size="mini" @click="pick(scope.row)">选课</el-button>
+            </template>
+<!--            <template slot-scope="scope">-->
+<!--                <el-button type="primary" icon="el-icon-edit" circle size='small' @click="edit(scope.row)"></el-button>-->
+<!--                <el-popconfirm-->
+<!--                        @onConfirm="del(scope.row.id)"-->
+<!--                        title="确定删除？"-->
+<!--                >-->
+<!--                    <el-button size='small' type="danger" icon="el-icon-delete" circle slot="reference" style="margin-left: 10px"></el-button>-->
+<!--                </el-popconfirm>-->
+<!--            </template>-->
         </el-table-column>
     </el-table>
     <!-- 分页 -->
@@ -130,6 +131,7 @@
     new Vue({
         el: "#wrapper",
         data: {
+            select:{},
             options: [],
             fileList: [],
             user: {},
@@ -138,15 +140,47 @@
             pageSize: 10,
             total: 0,
             dialogFormVisible: false,
-            entity: {},
+            entity: '',
             isCollapse: false,
             search: '',
         },
         created() {
             this.user = sessionStorage.getItem("user") ? JSON.parse(sessionStorage.getItem("user")) : {};
-            this.loadTable();
+            this.loadTable(this.user.username);
         },
         methods: {
+
+            //选课
+            pick(obj){
+                var temp  = JSON.parse(JSON.stringify(obj));
+                this.select.studentid = this.user.username;
+                this.select.courseid = temp.id;
+                this.select.teacherid = temp.teacherid;
+                $.ajax({
+                    url: "http://localhost:9998/api/select",
+                    type: 'POST',
+                    contentType: "application/json",
+
+                    data: JSON.stringify(this.select)
+                }).then(res => {
+                    if (res.code === '0') {
+                        this.$message({
+                            message: "保存成功",
+                            type: "success"
+                        });
+                    } else {
+                        this.$message({
+                            message: res.msg,
+                            type: "error"
+                        })
+                    }
+                    // this.loadTable();
+                    // this.dialogFormVisible = false;
+                    location.reload();
+
+
+                })
+            },
             fileSuccessUpload(res) {
                 this.entity.file = "http://localhost:9999/files/" + res.data;
                 this.entity.img = "http://localhost:9999/files/" + res.data;
@@ -159,7 +193,7 @@
                             message: "导入成功",
                             type: "success"
                         });
-                        this.loadTable()
+
                     }
                 })
             },
@@ -176,12 +210,17 @@
                 sessionStorage.removeItem("user");
                 location.href = "/page/end/login.html";
             },
-            loadTable() {
-                $.get(urlBase + "/stupage?pageNum=" + this.pageNum + "&pageSize=" + this.pageSize + "&name=" + this.search).then(res => {
-                    this.tableData = res.data.records;
-                    this.total = res.data.total;
+            loadTable(studentId) {
+                // $.get(urlBase + "/stupage?pageNum=" + this.pageNum + "&pageSize=" + this.pageSize + "&name=" + this.search).then(res => {
+                //     this.tableData = res.data.records;
+                //     this.total = res.data.total;
+                // })
+                $.get("/api/select/noselect/" + studentId).then(res => {
+                    if (res.code === '0') {
+                        this.entity = res.data;
+                        // console.log(this.entity)
+                    }
                 })
-
                  // $.get("/api/").then(res => {
                     // this.options = res.data;
                  // })

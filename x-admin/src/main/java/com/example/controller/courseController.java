@@ -42,6 +42,8 @@ public class courseController {
     @Autowired
     private studentsService stuservice;
 
+
+
     public User getUser() {
         User user = (User) request.getSession().getAttribute("user");
         if (user == null) {
