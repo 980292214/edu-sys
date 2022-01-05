@@ -8,6 +8,8 @@
     <title>个人信息</title>
     <link rel="stylesheet" href="../../css/element.css">
     <link rel="stylesheet" href="../../css/base.css">
+    <link rel="stylesheet" href="//unpkg.com/element-ui@2.15.7/lib/theme-chalk/index.css">
+
 </head>
 <body>
 <div id="wrapper" v-cloak>
@@ -20,8 +22,10 @@
 
     <div style="height: 1px; margin: 10px 0; background-color: white"></div>
     <!--是学生-->
+
     <el-form ref="form" :model="info" label-width="80px" v-if="this.user.role[0]===3">
-           <!-- <el-descriptions-item>
+        <el-descriptions class="margin-top" title="" :column="3" :size="size" border>
+            <el-descriptions-item>
                 <template slot="label">
                     <i class="el-icon-user"></i>
                     学号
@@ -30,88 +34,129 @@
             </el-descriptions-item>
             <el-descriptions-item>
                 <template slot="label">
-                    <i class="el-icon-mobile-phone"></i>
-                    手机号
+                    <i class="el-icon-user"></i>
+                    姓名
                 </template>
-                18100000000
+                {{info.name}}
             </el-descriptions-item>
             <el-descriptions-item>
                 <template slot="label">
-                    <i class="el-icon-location-outline"></i>
-                    居住地
+                    <i class="el-icon-price-tag"></i>
+                    性别
                 </template>
-                苏州市
+                {{info.sex}}
             </el-descriptions-item>
             <el-descriptions-item>
                 <template slot="label">
-                    <i class="el-icon-tickets"></i>
-                    备注
+                    <i class="el-icon-price-tag"></i>
+                    年龄
                 </template>
-                <el-tag size="small">学校</el-tag>
+                {{info.age}}
             </el-descriptions-item>
             <el-descriptions-item>
                 <template slot="label">
-                    <i class="el-icon-office-building"></i>
-                    联系地址
+                    <i class="el-icon-price-tag"></i>
+                    班级编号
                 </template>
-                江苏省苏州市吴中区吴中大道 1188 号
-            </el-descriptions-item>-->
+                {{info.classe}}
+            </el-descriptions-item>
+            <el-descriptions-item>
+                <template slot="label">
+                    <i class="el-icon-price-tag"></i>
+                    专业名称
+                </template>
+                {{info.major}}
+            </el-descriptions-item>
+            <el-descriptions-item>
+                <template slot="label">
+                    <i class="el-icon-price-tag"></i>
+                    院系名称
+                </template>
+                {{info.depart}}
+            </el-descriptions-item>
 
-        <el-form-item label="学号">
-            <el-input v-model="info.studentid" :disabled="true"></el-input>
-        </el-form-item>
-        <el-form-item label="姓名">
-            <el-input v-model="info.name" :disabled="true"></el-input>
-        </el-form-item>
-        <el-form-item label="性别">
-            <el-input v-model="info.sex" :disabled="true"></el-input>
-        </el-form-item>
-        <el-form-item label="年龄">
-            <el-input v-model="info.age" :disabled="true"></el-input>
-        </el-form-item>
-        <el-form-item label="班级编号">
-            <el-input v-model="info.classe" :disabled="true"></el-input>
-        </el-form-item>
-        <el-form-item label="专业名称">
-            <el-input v-model="info.major" :disabled="true"></el-input>
-        </el-form-item>
-        <el-form-item label="院系名称">
-            <el-input v-model="info.depart" :disabled="true"></el-input>
-        </el-form-item>
-        <el-form-item label="邮箱">
-            <el-input v-model="info.email"></el-input>
-        </el-form-item>
-        <el-form-item label="联系方式">
-            <el-input v-model="info.phone"></el-input>
-        </el-form-item>
-        <el-form-item label="入学时间">
-            <el-input v-model="info.starttime" :disabled="true"></el-input>
-        </el-form-item>
+            <el-descriptions-item>
+                <template slot="label">
+                    <i class="el-icon-price-tag"></i>
+                    联系方式
+                </template>
+                {{info.phone}}
+            </el-descriptions-item>
+            <el-descriptions-item>
+                <template slot="label">
+                    <i class="el-icon-price-tag"></i>
+                    入学时间
+                </template>
+                {{info.starttime}}
+            </el-descriptions-item>
+            <el-descriptions-item>
+                <template slot="label">
+                    <i class="el-icon-price-tag"></i>
+                    邮箱
+                </template>
+                {{info.email}}
+            </el-descriptions-item>
+        </el-descriptions>
     </el-form>
+
     <!--是老师-->
+
     <el-form ref="form" :model="info" label-width="80px" v-if="this.user.role[0]===1">
-        <el-form-item label="教师编号">
-            <el-input v-model="info.teacherid" :disabled="true"></el-input>
-        </el-form-item>
-        <el-form-item label="姓名">
-            <el-input v-model="info.name" :disabled="true"></el-input>
-        </el-form-item>
-        <el-form-item label="性别">
-            <el-input v-model="info.sex" :disabled="true"></el-input>
-        </el-form-item>
-        <el-form-item label="年龄">
-            <el-input v-model="info.age" :disabled="true"></el-input>
-        </el-form-item>
-        <el-form-item label="职称">
-            <el-input v-model="info.job" :disabled="true"></el-input>
-        </el-form-item>
-        <el-form-item label="邮箱">
-            <el-input v-model="info.email" :disabled="false"></el-input>
-        </el-form-item>
-        <el-form-item label="联系方式">
-            <el-input v-model="info.phone" :disabled="false"></el-input>
-        </el-form-item>
+        <el-descriptions class="margin-top" title="" :column="3" :size="size" border>
+            <el-descriptions-item>
+                <template slot="label">
+                    <i class="el-icon-user"></i>
+                    教师编号
+                </template>
+                {{info.teacherid}}
+            </el-descriptions-item>
+            <el-descriptions-item>
+                <template slot="label">
+                    <i class="el-icon-user"></i>
+                    姓名
+                </template>
+                {{info.name}}
+            </el-descriptions-item>
+            <el-descriptions-item>
+                <template slot="label">
+                    <i class="el-icon-price-tag"></i>
+                    性别
+                </template>
+                {{info.sex}}
+            </el-descriptions-item>
+            <el-descriptions-item>
+                <template slot="label">
+                    <i class="el-icon-price-tag"></i>
+                    年龄
+                </template>
+                {{info.age}}
+            </el-descriptions-item>
+            <el-descriptions-item>
+                <template slot="label">
+                    <i class="el-icon-price-tag"></i>
+                    职称
+                </template>
+                {{info.job}}
+            </el-descriptions-item>
+
+
+            <el-descriptions-item>
+                <template slot="label">
+                    <i class="el-icon-price-tag"></i>
+                    联系方式
+                </template>
+                {{info.phone}}
+            </el-descriptions-item>
+            <el-descriptions-item>
+                <template slot="label">
+                    <i class="el-icon-price-tag"></i>
+                    邮箱
+                </template>
+                {{info.email}}
+            </el-descriptions-item>
+        </el-descriptions>
     </el-form>
+
 </div>
 
 <script src="../../js/jquery.min.js"></script>
@@ -119,11 +164,13 @@
 <script src="../../js/element.js"></script>
 <script src="../../js/tinymce/tinymce.min.js"></script>
 
+<script src="//unpkg.com/vue/dist/vue.js"></script>
+<script src="//unpkg.com/element-ui@2.15.7/lib/index.js"></script>
 
 <script>
 
     let urlBase = "/api/homework/";
-    new Vue({
+    var Main = new Vue({
         el: "#wrapper",
         data: {
             user: '',
@@ -142,7 +189,7 @@
                 search: ''
             },
             role: '',
-            size: ''
+            size: 'big'
         },
         created() {
             this.user = sessionStorage.getItem("user") ? JSON.parse(sessionStorage.getItem("user")) : {};
