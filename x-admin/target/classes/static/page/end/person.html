@@ -119,13 +119,13 @@
                 if(this.user.role[0] === 1){
                     $.get("/api/teachers/tea?id=" + username).then(res => {
                         if (res.code === '0') {
-                            this.info = res.data[0];
+                            this.info = res.data;
                         }
                     })
                 }else if(this.user.role[0] ===3){
                     $.get("/api/students/stu?id=" + username).then(res => {
                         if (res.code === '0') {
-                            this.info = res.data[0];
+                            this.info = res.data;
                         }
                     })
                 }
