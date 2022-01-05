@@ -24,7 +24,7 @@
 
         <el-form-item label="审批老师">
             <template>
-                <el-select v-model="value" placeholder="请选择">
+                <el-select v-model="teacherid" placeholder="请选择">
                     <el-option
                             v-for="item in teachers"
                             :key="item.id"
@@ -49,7 +49,7 @@
             </template>
         </el-form-item>
         <el-form-item label="请假理由">
-            <el-input type="textarea" v-model="form.name"></el-input>
+            <el-input type="textarea" v-model="reason"></el-input>
         </el-form-item>
         <el-form-item label="上传附件">
             <el-upload
@@ -96,13 +96,15 @@
             },
             time: [new Date(2000, 10, 10, 10, 10), new Date(2000, 10, 11, 10, 10)],
             teachers:'',
+            teacherid:'',
             value: '',
-            form: {
-                course: '',
-                username: '',
-                deadline: '',
+            leave: {
+                teacherid: '',
                 studentid: '',
-                name: ''
+                starttime: '',
+                endtime: '',
+                reason: '',
+                attachment:''
             },
             fileList: []
         },
