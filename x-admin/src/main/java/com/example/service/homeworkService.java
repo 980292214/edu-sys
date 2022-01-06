@@ -17,7 +17,7 @@ public class homeworkService extends ServiceImpl<homeworkMapper, homework> {
     public Object commit(homework homework) {
         QueryWrapper wrapper = new QueryWrapper();
         wrapper.eq("courseid",homework.getCourseid());
-        wrapper.eq("studentid",homework.getStudentid());
+//        wrapper.eq("studentid",homework.getStudentid());
         homework.setState("已提交");
         int rows = homeworkMapper.update(homework, wrapper);
         return rows;
