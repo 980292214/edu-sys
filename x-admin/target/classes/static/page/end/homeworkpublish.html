@@ -20,37 +20,31 @@
 
     <div style="height: 1px; margin: 10px 0; background-color: white"></div>
 
-    <el-form ref="form" :model="form" label-width="80px">
-        <el-form-item label="课程名称">
-            <el-input v-model="form.course"></el-input>
+    <el-form ref="courses" :model="courses" label-width="80px">
+        <el-form-item label="选择课程">
+            <template>
+                <el-select v-model="courses.id" placeholder="请选择">
+                    <el-option
+                            v-for="item in courses"
+                            :key="item.id"
+                            :label="item.coursename"
+                            :value="item.id">
+                    </el-option>
+                </el-select>
+            </template>
         </el-form-item>
-        <el-form-item label="任课老师">
-            <el-input v-model="form.username"></el-input>
-        </el-form-item>
-        <el-form-item label="上传附件">
-            <el-upload
-                    class="upload-demo"
-                    action="https://jsonplaceholder.typicode.com/posts/"
-                    :on-preview="handlePreview"
-                    :on-remove="handleRemove"
-                    :before-remove="beforeRemove"
-                    multiple
-                    :limit="3"
-                    :on-exceed="handleExceed"
-                    :file-list="fileList">
-                <el-button size="small" type="primary">点击上传</el-button>
-                <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
-            </el-upload>
-        </el-form-item>
+
+
         <el-form-item label="截止日期">
-            <el-input v-model="form.deadline" :disabled="true"></el-input>
+            <div class="block">
+                <el-date-picker
+                        v-model="courses.deadline"
+                        type="datetime"
+                        placeholder="选择日期时间">
+                </el-date-picker>
+            </div>
         </el-form-item>
-        <el-form-item label="学号">
-            <el-input v-model="form.studentid" :disabled="true"></el-input>
-        </el-form-item>
-        <el-form-item label="姓名">
-            <el-input v-model="form.name" :disabled="true"></el-input>
-        </el-form-item>
+
         <el-form-item>
             <el-button type="primary" @click="onSubmit">提交</el-button>
             <el-button>取消</el-button>
@@ -70,6 +64,7 @@
     new Vue({
         el: "#wrapper",
         data: {
+            courses:'',
             form: {
                 course: '',
                 username: '',
@@ -82,8 +77,17 @@
         created() {
             this.user = sessionStorage.getItem("user") ? JSON.parse(sessionStorage.getItem("user")) : {};
             this.loadTable();
+            this.getCourses(this.user.username);
         },
         methods: {
+            getCourses(teacherId){
+                $.get("/api/course/courses/"+teacherId).then(res => {
+                    if (res.code === '0') {
+                        this.courses = res.data;
+                        this.loadTable()
+                    }
+                })
+            },
             handleRemove(file, fileList) {
                 console.log(file, fileList);
             },

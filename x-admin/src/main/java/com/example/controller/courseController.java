@@ -73,6 +73,11 @@ public class courseController {
         return Result.success(courseService.getById(id));
     }
 
+    @GetMapping("/courses/{teacherId}")
+    public Result<?> getCourses(@PathVariable String teacherId) {
+        return Result.success(courseService.getCourses(teacherId));
+    }
+
     @GetMapping
     public Result<?> findAll() {
         return Result.success(courseService.list());
