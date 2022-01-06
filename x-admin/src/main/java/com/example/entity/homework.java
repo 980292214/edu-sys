@@ -19,7 +19,7 @@ public class homework extends Model<homework> {
     /**
       * 作业编号 
       */
-    private String homeworkid;
+
 
     /**
       * 课程编号 
@@ -50,5 +50,12 @@ public class homework extends Model<homework> {
       * 提交状态 
       */
     private String state;
+
+    private String demand;
+
+    /**
+     * 提交状态
+     */
+    private String files;
 
 }

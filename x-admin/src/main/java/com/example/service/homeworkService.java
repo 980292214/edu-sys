@@ -22,4 +22,13 @@ public class homeworkService extends ServiceImpl<homeworkMapper, homework> {
         int rows = homeworkMapper.update(homework, wrapper);
         return rows;
     }
+
+    public Object publish(homework homework) {
+        /*QueryWrapper wrapper = new QueryWrapper();
+        System.out.println(homework);
+        System.out.println("------------------------------------------------");
+        wrapper.eq("courseid",homework.getCourseid());*/
+        int rows = homeworkMapper.insert(homework);
+        return rows;
+    }
 }

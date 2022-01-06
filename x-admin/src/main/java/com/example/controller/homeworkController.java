@@ -55,7 +55,10 @@ public class homeworkController {
     public Result<?> commit(@RequestBody homework homework) {
         return Result.success(homeworkService.commit(homework));
     }
-
+    @PostMapping("/publish")
+    public Result<?> publish(@RequestBody homework homework) {
+        return Result.success(homeworkService.publish(homework));
+    }
 
     @DeleteMapping("/{id}")
     public Result<?> delete(@PathVariable Long id) {
@@ -92,7 +95,7 @@ public class homeworkController {
         List<homework> all = homeworkService.list();
         for (homework obj : all) {
             Map<String, Object> row = new LinkedHashMap<>();
-            row.put("作业编号", obj.getHomeworkid());
+//            row.put("作业编号", obj.getHomeworkid());
             row.put("课程编号", obj.getCourseid());
             row.put("学号", obj.getStudentid());
             row.put("作业内容", obj.getContent());
@@ -126,7 +129,7 @@ public class homeworkController {
         List<homework> saveList = new ArrayList<>();
         for (List<Object> row : lists) {
             homework obj = new homework();
-            obj.setHomeworkid((String) row.get(1));
+//            obj.setHomeworkid((String) row.get(1));
             obj.setCourseid((String) row.get(2));
             obj.setStudentid((String) row.get(3));
             obj.setContent((String) row.get(4));

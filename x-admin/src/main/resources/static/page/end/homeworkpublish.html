@@ -20,10 +20,10 @@
 
     <div style="height: 1px; margin: 10px 0; background-color: white"></div>
 
-    <el-form ref="courses" :model="courses" label-width="80px">
+    <el-form ref="homework" :model="homework" label-width="80px">
         <el-form-item label="选择课程">
             <template>
-                <el-select v-model="courses.id" placeholder="请选择">
+                <el-select v-model="homework.courseid" placeholder="请选择">
                     <el-option
                             v-for="item in courses"
                             :key="item.id"
@@ -38,15 +38,34 @@
         <el-form-item label="截止日期">
             <div class="block">
                 <el-date-picker
-                        v-model="courses.deadline"
+                        v-model="time"
                         type="datetime"
                         placeholder="选择日期时间">
                 </el-date-picker>
             </div>
         </el-form-item>
-
+        <el-form-item label="作业要求">
+            <el-input type="textarea" v-model="homework.demand"></el-input>
+        </el-form-item>
+        <el-form-item label="上传附件">
+            <el-upload
+                    accept=".jpg,.jpeg,.png,.gif,.txt,.pdf,.JPG,.JPEG,.PBG,.GIF,.BMP,.PDF"
+                    class="upload-demo"
+                    action="http://localhost:9998/upload"
+                    :on-preview="handlePreview"
+                    :on-remove="handleRemove"
+                    :before-remove="beforeRemove"
+                    multiple
+                    :limit="3"
+                    :on-exceed="handleExceed"
+                    :on-success="onSuccessUpload"
+                    :file-list="fileList">
+                <el-button size="small" type="primary">点击上传</el-button>
+                <div slot="tip" class="el-upload__tip">上传作业相关附件</div>
+            </el-upload>
+        </el-form-item>
         <el-form-item>
-            <el-button type="primary" @click="onSubmit">提交</el-button>
+            <el-button type="primary" @click="onSubmit">发布</el-button>
             <el-button>取消</el-button>
         </el-form-item>
     </el-form>
@@ -64,7 +83,12 @@
     new Vue({
         el: "#wrapper",
         data: {
+            time:'',
             courses:'',
+            homework: {
+                demand:'',
+            },
+            publish: {},
             form: {
                 course: '',
                 username: '',
@@ -72,7 +96,7 @@
                 studentid:'',
                 name:''
             },
-            fileList: [{name: 'food.jpeg', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'}, {name: 'food2.jpeg', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'}]
+            fileList: []
         },
         created() {
             this.user = sessionStorage.getItem("user") ? JSON.parse(sessionStorage.getItem("user")) : {};
@@ -88,6 +112,9 @@
                     }
                 })
             },
+            onSuccessUpload(res, file, fileList) {
+                this.publish.files = file.name;
+            },
             handleRemove(file, fileList) {
                 console.log(file, fileList);
             },
@@ -101,7 +128,34 @@
                 return this.$confirm(`确定移除 ${ file.name }？`);
             },
             onSubmit() {
-                console.log('submit!');
+                this.publish.deadline = this.time.toString();
+                this.publish.courseid = this.homework.courseid.toString();
+                this.publish.demand = this.homework.demand.toString();
+                console.log(JSON.stringify(this.publish))
+
+                $.ajax({
+
+                    url: "/api/homework/publish",
+                    type: "POST",
+                    contentType: "application/json",
+                    data: JSON.stringify(this.publish)
+                }).then(res => {
+                    if (res.code === '0') {
+                        this.$message({
+                            message: "保存成功",
+                            type: "success"
+                        });
+                    } else {
+                        this.$message({
+                            message: res.msg,
+                            type: "error"
+                        })
+                    }
+                    alert("发布成功")
+                    location.reload();
+                    this.loadTable();
+                    this.dialogFormVisible = false;
+                })
             },
             fileSuccessUpload(res) {
                 this.entity.file = "http://localhost:9999/files/" + res.data;

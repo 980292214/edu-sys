@@ -30,7 +30,8 @@
         <el-table-column prop="coursename" label="课程名称"></el-table-column>
         <el-table-column prop="deadline" label="最后期限"></el-table-column>
         <el-table-column prop="state" label="提交状态"></el-table-column>
-
+        <el-table-column prop="demand" label="作业需求"></el-table-column>
+        <el-table-column  label="下载附件"><a href="#">下载附件</a></el-table-column>
         <!--        <el-table-column prop="password" label="密码"></el-table-column>-->
         <!--        <el-table-column prop="photo" label="照片"></el-table-column>-->
 
@@ -62,6 +63,7 @@
             <el-form-item label="作业内容" label-width="120px">
                 <el-input type="textarea" v-model="entity.content" autocomplete="off" style="width: 80%"></el-input>
             </el-form-item>
+
             <el-form-item label="上传附件" label-width="120px">
                 <el-upload
                         accept=".jpg,.jpeg,.png,.gif,.txt,.pdf,.JPG,.JPEG,.PBG,.GIF,.BMP,.PDF"
