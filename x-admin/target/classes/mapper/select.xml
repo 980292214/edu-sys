@@ -1,21 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.mapper.selectMapper">
-    <select id="findByStudentId"  resultType="java.util.Map">
+    <select id="findByStudentId" resultType="java.util.Map">
      SELECT * FROM t_select AS s
      INNER JOIN t_course AS c ON s.`courseid` = c.id
      INNER JOIN t_teachers AS t ON c.`teacherid`=t.`teacherid`
      WHERE s.`studentid`=#{studentId}
     </select>
-    <select id="noselectedCourse"  resultType="java.util.Map">
+    <select id="gethomeworks" resultType="java.util.Map">
+     SELECT * FROM t_select AS s
+    INNER JOIN t_course AS c
+    ON s.courseid = c.`id`
+    INNER JOIN t_homework AS h
+    ON s.courseid = h.`courseid`
+    WHERE s.studentid=#{studentId}
+    </select>
+
+    <select id="noselectedCourse" resultType="java.util.Map">
      SELECT * FROM t_course
     WHERE id NOT IN (SELECT courseid AS id FROM t_select WHERE studentid=#{studentId}) and limitmajor = #{major} and moder = '选修' ;
     </select>
-    <select id="selectedCourse"  resultType="java.util.Map">
+    <select id="selectedCourse" resultType="java.util.Map">
      SELECT * FROM t_course
     WHERE id IN (SELECT courseid AS id FROM t_select WHERE studentid=#{studentId});
     </select>
-    <select id="selectedCourse"  resultType="java.util.Map">
+    <select id="selectedCourse" resultType="java.util.Map">
      SELECT * FROM t_course
     WHERE id IN (SELECT courseid AS id FROM t_select WHERE studentid=#{studentId});
     </select>

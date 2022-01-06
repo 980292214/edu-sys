@@ -19,7 +19,7 @@ public class exam extends Model<exam> {
     /**
       * 考试编号 
       */
-    private String examid;
+
 
     /**
       * 考试时间 

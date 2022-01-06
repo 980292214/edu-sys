@@ -19,6 +19,7 @@ public interface selectMapper extends BaseMapper<select> {
 
     public List noselectedCourse(@Param("studentId") String studentId);
     public List selectedCourse(@Param("studentId") String studentId);
+    public List gethomeworks(@Param("studentId") String studentId);
     public int deleteSelectedCourse(@Param("courseId") String courseId,@Param("studentId") String studentId);
 
 }

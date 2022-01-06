@@ -87,7 +87,7 @@ public class examController {
         List<exam> all = examService.list();
         for (exam obj : all) {
             Map<String, Object> row = new LinkedHashMap<>();
-            row.put("考试编号", obj.getExamid());
+            row.put("考试编号", obj.getId());
             row.put("考试时间", obj.getTime());
             row.put("考试地点", obj.getPlace());
             row.put("课程编号", obj.getCourseid());
@@ -121,7 +121,7 @@ public class examController {
         List<exam> saveList = new ArrayList<>();
         for (List<Object> row : lists) {
             exam obj = new exam();
-            obj.setExamid((String) row.get(1));
+            obj.setId((Long) row.get(1));
             obj.setTime((String) row.get(2));
             obj.setPlace((String) row.get(3));
             obj.setCourseid((String) row.get(4));

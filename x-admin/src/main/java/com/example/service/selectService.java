@@ -31,6 +31,12 @@ public class selectService extends ServiceImpl<selectMapper, select> {
         List courses = selectMapper.selectedCourse(studentId);
         return courses;
     }
+
+    public List gethomeworks(String studentId){
+        List courses = selectMapper.gethomeworks(studentId);
+        return courses;
+    }
+
     public int deleteSelectedCourse(String courseId,String studentId){
         int rows = selectMapper.deleteSelectedCourse(courseId,studentId);
         return rows;
