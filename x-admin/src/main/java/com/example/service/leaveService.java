@@ -19,4 +19,14 @@ public class leaveService extends ServiceImpl<leaveMapper, leave> {
         List leaves = leaveMapper.findByTeacherId(teacherId);
         return leaves;
     }
+
+    public Object permit(leave leave) {
+        int i = leaveMapper.updateById(leave);
+        return i;
+    }
+
+    public Object reject(leave leave) {
+        int i = leaveMapper.updateById(leave);
+        return i;
+    }
 }

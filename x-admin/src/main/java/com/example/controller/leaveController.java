@@ -52,6 +52,14 @@ public class leaveController {
         return Result.success(leaveService.updateById(leave));
     }
 
+    @PutMapping("/permit")
+    public Result<?> permit(@RequestBody leave leave) {
+        return Result.success(leaveService.permit(leave));
+    }
+    @PutMapping("/reject")
+    public Result<?> reject(@RequestBody leave leave) {
+        return Result.success(leaveService.reject(leave));
+    }
     @DeleteMapping("/{id}")
     public Result<?> delete(@PathVariable Long id) {
         leaveService.removeById(id);
