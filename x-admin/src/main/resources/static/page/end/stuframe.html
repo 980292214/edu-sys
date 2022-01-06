@@ -32,7 +32,7 @@
                 </el-menu-item>
                 <el-menu-item :index="item.path" v-for="item in user.permission">
                     <i :class=`el-icon-${item.icon}`></i>
-                    <span slot="title">{{item.name=="考试信息管理"?'考试安排':(item.name=="请假审核"?'请假记录':item.name)}}</span>
+                    <span slot="title">{{item.name=="考试信息管理"?'考试安排':(item.name=="请假审核"?'请假记录':(item.name=="选课信息表管理"?'课程成绩':item.name))}}</span>
                 </el-menu-item>
             </el-menu>
         </el-aside>
@@ -120,6 +120,10 @@
                 if(this.src == 'exam'){
                     this.src = "stu"+this.src;
                 }
+                if(this.src == 'select'){
+                    this.src = "stu"+this.src;
+                }
+
                 if(this.src == 'permitleave'){
                     this.src = "stu"+this.src;
                 }
