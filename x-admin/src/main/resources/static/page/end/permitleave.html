@@ -21,13 +21,18 @@
     <div style="height: 1px; margin: 10px 0; background-color: white"></div>
 
     <el-table :data="leave" border stripe style="width: 100%">
-        <el-table-column prop="studentid" label="请假学生学号" width="100"> </el-table-column>
+        <el-table-column prop="studentid" label="请假学生学号" width="100"></el-table-column>
         <el-table-column prop="starttime" label="请假开始时间"></el-table-column>
         <el-table-column prop="endtime" label="请假结束时间"></el-table-column>
         <el-table-column prop="reason" label="请假理由"></el-table-column>
         <el-table-column prop="attachment" label="请假附件"></el-table-column>
         <el-table-column prop="state" label="审核状态"></el-table-column>
-        <el-table-column  label="下载附件"><a href="#">下载附件</a></el-table-column>
+
+        <el-table-column label="下载附件">
+            <template slot-scope="scope">
+                <el-button type="" size="mini" @click="req(scope.row)">下载附件</el-button>
+            </template>
+        </el-table-column>
         <el-table-column
                 fixed="right"
                 label="操作"
@@ -61,10 +66,10 @@
     new Vue({
         el: "#wrapper",
         data: {
-            entity:'',
-            teacherid:'',
-            leave:'',
-
+            entity: '',
+            teacherid: '',
+            leave: '',
+            filename: '',
             value1: [new Date(2000, 10, 10, 10, 10), new Date(2000, 10, 11, 10, 10)],
             value2: '',
 
@@ -90,8 +95,9 @@
             this.loadTable(this.teacherid);
         },
         methods: {
-            permit(obj){
-                obj.state="通过";
+
+            permit(obj) {
+                obj.state = "通过";
                 $.ajax({
 
                     url: "/api/leave/permit",
@@ -116,8 +122,8 @@
                     this.dialogFormVisible = false;
                 })
             },
-            reject(obj){
-                obj.state="拒绝";
+            reject(obj) {
+                obj.state = "拒绝";
                 $.ajax({
 
                     url: "/api/leave/reject",
@@ -187,13 +193,20 @@
                 location.href = "/page/end/login.html";
             },
             loadTable(teacherid) {
-                $.get("/api/leave/teachers/"+teacherid).then(res => {
+                $.get("/api/leave/teachers/" + teacherid).then(res => {
                     this.leave = res.data;
+                    this.filename = res.data[0].attachment;
                 })
 
                 // $.get("/api/").then(res => {
                 // this.options = res.data;
                 // })
+            },
+            req(obj) {
+                // this.$router.push({path:'http://localhost:9998/download?downfile=git.txt'})
+                var url = "http://localhost:9998/download?downfile=" + obj.attachment;
+                window.open(url, "_self");
+
             },
             exp() {   // excel 导出
                 window.open(urlBase + "/export");
