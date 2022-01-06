@@ -9,12 +9,14 @@ import cn.hutool.poi.excel.ExcelWriter;
 import com.example.common.Result;
 import com.example.entity.course;
 import com.example.entity.students;
+import com.example.mapper.selectMapper;
 import com.example.mapper.studentsMapper;
 import com.example.service.courseService;
 import com.example.entity.User;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.example.service.selectService;
 import com.example.service.studentsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -100,15 +102,29 @@ public class courseController {
 
     @Autowired
     private studentsMapper stuMapper;
+    @Autowired
+    private selectMapper mapper;
 
     @GetMapping("/stupage")
     public Result<?> findstuPage(@RequestParam(required = false, defaultValue = "") String name,
                               @RequestParam(required = false, defaultValue = "1") Integer pageNum,
                               @RequestParam(required = false, defaultValue = "10") Integer pageSize,HttpSession httpSession) {
-
+         //可以拿到学号3120000100
         User user = (User)httpSession.getAttribute("user");
-
+        //拿到学生信息，获取专业
         students stu = stuMapper.getStudentid(user.getUsername());
+        //拿到选修的课程编号
+        List<String> list = mapper.getCourseid(user.getUsername());
+
+        for(String str: list){
+            LambdaQueryWrapper<course> query = Wrappers.<course>lambdaQuery().orderByDesc(course::getId)
+                    .eq(course::getId,str).or().eq(course::getModer,"必修")
+                    .eq(course::getLimitmajor,stu.getMajor());
+        }
+
+
+//        students stu = stuMapper.getStudentid(user.getUsername());
+
 
 
         LambdaQueryWrapper<course> query = Wrappers.<course>lambdaQuery().orderByDesc(course::getId).eq(course::getLimitmajor,stu.getMajor());

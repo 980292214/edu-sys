@@ -32,4 +32,10 @@
     <delete id="deleteSelectedCourse">
         DELETE FROM t_select WHERE studentid=#{studentId} AND courseid=#{courseId};
     </delete>
+
+    <select id="getCourseid" resultType="java.lang.String">
+
+        select  courseid from t_select where studentid = #{studentid}
+
+    </select>
 </mapper>
