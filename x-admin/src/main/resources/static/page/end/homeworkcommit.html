@@ -31,7 +31,11 @@
         <el-table-column prop="deadline" label="最后期限"></el-table-column>
         <el-table-column prop="state" label="提交状态"></el-table-column>
         <el-table-column prop="demand" label="作业需求"></el-table-column>
-        <el-table-column  label="下载附件"><a href="#">下载附件</a></el-table-column>
+        <el-table-column label="下载附件">
+            <template slot-scope="scope">
+                <el-button type="" size="mini" @click="req(scope.row)">下载附件</el-button>
+            </template>
+        </el-table-column>
         <!--        <el-table-column prop="password" label="密码"></el-table-column>-->
         <!--        <el-table-column prop="photo" label="照片"></el-table-column>-->
 
@@ -134,6 +138,12 @@
             this.getCourses(this.user.username);
         },
         methods: {
+            req(obj) {
+                // this.$router.push({path:'http://localhost:9998/download?downfile=git.txt'})
+                var url = "http://localhost:9998/download?downfile=" + obj.files;
+                window.open(url, "_self");
+
+            },
             getCourses(studentId) {
                 $.get("/api/select/homeworks/" + studentId).then(res => {
                     if (res.code === '0') {
@@ -240,7 +250,7 @@
                 })
             },
             edit(obj) {
-                this.entity.studentid =this.user.username;
+                this.entity.studentid = this.user.username;
                 this.entity.courseid = JSON.parse(JSON.stringify(obj)).courseid;
                 this.fileList = [];
                 this.dialogFormVisible = true;
