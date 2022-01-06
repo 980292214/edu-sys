@@ -68,6 +68,12 @@ public class selectController {
         return Result.success(courses);
     }
 
+    @GetMapping("/homeworks/{studentId}")
+    public Result<?> gethomeworks(@PathVariable String studentId){
+        List courses = selectService.gethomeworks(studentId);
+        return Result.success(courses);
+    }
+
     @GetMapping("/delete/{courseId}/{studentId}")
     public Result<?> deleteSelectedCourse(@PathVariable String courseId,@PathVariable String studentId){
         int rows = selectService.deleteSelectedCourse(courseId,studentId);

@@ -51,6 +51,11 @@ public class homeworkController {
     public Result<?> update(@RequestBody homework homework) {
         return Result.success(homeworkService.updateById(homework));
     }
+    @PutMapping("/commit")
+    public Result<?> commit(@RequestBody homework homework) {
+        return Result.success(homeworkService.commit(homework));
+    }
+
 
     @DeleteMapping("/{id}")
     public Result<?> delete(@PathVariable Long id) {
