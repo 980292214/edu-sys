@@ -116,18 +116,18 @@ public class courseController {
         //拿到选修的课程编号
         List<String> list = mapper.getCourseid(user.getUsername());
 
-        for(String str: list){
-            LambdaQueryWrapper<course> query = Wrappers.<course>lambdaQuery().orderByDesc(course::getId)
-                    .eq(course::getId,str).or().eq(course::getModer,"必修")
-                    .eq(course::getLimitmajor,stu.getMajor());
-        }
+//        for(String str: list){
+//            LambdaQueryWrapper<course> query = Wrappers.<course>lambdaQuery().orderByDesc(course::getId)
+//                    .eq(course::getId,str).or().eq(course::getModer,"必修")
+//                    .eq(course::getLimitmajor,stu.getMajor());
+//        }
 
 
 //        students stu = stuMapper.getStudentid(user.getUsername());
 
 
 
-        LambdaQueryWrapper<course> query = Wrappers.<course>lambdaQuery().orderByDesc(course::getId).eq(course::getLimitmajor,stu.getMajor());
+        LambdaQueryWrapper<course> query = Wrappers.<course>lambdaQuery().orderByDesc(course::getId).eq(course::getLimitmajor,stu.getMajor()).in(course::getId,list).or().eq(course::getModer,"必修").eq(course::getLimitmajor,stu.getMajor());
 
         if (StrUtil.isNotBlank(name)) {
             query.like(course::getCoursename, name);

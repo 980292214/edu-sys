@@ -27,7 +27,7 @@
         <el-table-column prop="reason" label="请假理由"></el-table-column>
         <el-table-column prop="attachment" label="请假附件"></el-table-column>
         <el-table-column prop="state" label="审核状态"></el-table-column>
-        <el-table-column  label="下载附件"><a href="#">下载附件</a></el-table-column>
+        <el-table-column  label="下载附件"><a href="http://localhost:9998/download?downfile=">下载附件</a></el-table-column>
         <!--<el-table-column-->
                 <!--fixed="right"-->
                 <!--label="操作"-->
@@ -90,6 +90,8 @@
             this.loadTable(this.teacherid);
         },
         methods: {
+
+
             permit(obj){
                 obj.state="通过";
                 $.ajax({

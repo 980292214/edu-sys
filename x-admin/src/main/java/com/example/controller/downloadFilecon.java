@@ -20,7 +20,7 @@ public class downloadFilecon {
     @RequestMapping("/download")
     public void download(String downfile, Long id,HttpServletResponse response) {
         try {
-            String fileurl = "D:\\Download\\";
+            String fileurl = "D:\\upload\\";
             fileurl = fileurl+downfile;
 // path是指想要下载的文件的路径
             File file = new File(fileurl);
@@ -49,7 +49,7 @@ public class downloadFilecon {
             outputStream.write(buffer);
             outputStream.flush();
 
-            newService.downloadnum(id);
+//            newService.downloadnum(id);
 
         } catch (IOException ex) {
             ex.printStackTrace();
