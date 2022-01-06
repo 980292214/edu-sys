@@ -4,4 +4,8 @@
     <select id="findByTeacherId"  resultType="java.util.Map">
      SELECT * FROM t_leave WHERE teacherid=#{teacherId}
     </select>
+
+    <select id="findByStudentId"  resultType="java.util.Map">
+     SELECT * FROM t_leave WHERE studentid=#{studentId}
+    </select>
 </mapper>

@@ -8,4 +8,6 @@ import java.util.List;
 
 public interface leaveMapper extends BaseMapper<leave> {
     public List findByTeacherId(@Param("teacherId") String teacherId);
+
+    public List findByStudentId(@Param("studentId") String studentId);
 }

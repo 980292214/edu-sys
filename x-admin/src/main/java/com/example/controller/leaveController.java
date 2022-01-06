@@ -77,6 +77,11 @@ public class leaveController {
         return Result.success(leaveService.findByTeacherId(teacherId));
     }
 
+    @GetMapping("/students/{stuId}")
+    public Result<?> findByStuId(@PathVariable String stuId) {
+        return Result.success(leaveService.findByStudentId(stuId));
+    }
+
     @GetMapping
     public Result<?> findAll() {
         return Result.success(leaveService.list());
