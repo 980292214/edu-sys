@@ -32,7 +32,7 @@
                 </el-menu-item>
                 <el-menu-item :index="item.path" v-for="item in user.permission">
                     <i :class=`el-icon-${item.icon}`></i>
-                    <span slot="title">{{item.name=="课程信息管理"?'学生选课':(item.name=="选课信息管理"?'课程成绩':item.name)}}</span>
+                    <span slot="title">{{item.name=="考试信息管理"?'考试安排':(item.name=="选课信息管理"?'课程成绩':item.name)}}</span>
                 </el-menu-item>
             </el-menu>
         </el-aside>
