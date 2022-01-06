@@ -5,7 +5,7 @@
     <meta HTTP-EQUIV="pragma" CONTENT="no-cache">
     <meta HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
     <meta HTTP-EQUIV="expires" CONTENT="0">
-    <title>作业提交</title>
+    <title>请假记录</title>
     <link rel="stylesheet" href="../../css/element.css">
     <link rel="stylesheet" href="../../css/base.css">
 </head>
@@ -14,83 +14,39 @@
     <div style="padding-bottom: 10px">
         <el-breadcrumb separator-class="el-icon-arrow-right">
             <el-breadcrumb-item @click.native="parent.changeIndex('index')">首页</el-breadcrumb-item>
-            <el-breadcrumb-item>作业提交</el-breadcrumb-item>
+            <el-breadcrumb-item>请假记录</el-breadcrumb-item>
         </el-breadcrumb>
     </div>
 
     <div style="height: 1px; margin: 10px 0; background-color: white"></div>
 
-    <!--    <el-upload action="/files/upload" :on-success="successUpload" :show-file-list="false" style="display: inline-block">-->
-    <!--        <el-button size='small' type="primary">导入</el-button>-->
-    <!--    </el-upload>-->
-    <!--    <el-button size='small' @click="exp" type="primary"  style="margin: 10px 0">导出</el-button>-->
-    <el-table :data="homeworks" border stripe style="width: 100%">
-        <!--        <el-table-column prop="id" label="ID" width="100"> </el-table-column>-->
-        <el-table-column prop="courseid" label="课程编号" sortable></el-table-column>
-        <el-table-column prop="coursename" label="课程名称"></el-table-column>
-        <el-table-column prop="deadline" label="最后期限"></el-table-column>
-<!--        <el-table-column prop="state" label="提交状态"></el-table-column>-->
-        <el-table-column prop="demand" label="作业需求"></el-table-column>
-        <el-table-column label="下载附件">
-            <template slot-scope="scope">
-                <el-button type="" size="mini" @click="req(scope.row)">下载附件</el-button>
-            </template>
-        </el-table-column>
-        <!--        <el-table-column prop="password" label="密码"></el-table-column>-->
-        <!--        <el-table-column prop="photo" label="照片"></el-table-column>-->
-
-
-        <el-table-column
-                fixed="right"
-                label="操作"
-                width="200">
-            <template slot-scope="scope">
-                <el-button type="primary" icon="el-icon-edit" circle size='small' @click="edit(scope.row)"></el-button>
-                <!--<el-popconfirm
-                        @onConfirm="del(scope.row.id)"
-                        title="确定删除？"
-                >
-                    <el-button size='small' type="danger" icon="el-icon-delete" circle slot="reference"
-                               style="margin-left: 10px"></el-button>-->
-                </el-popconfirm>
-            </template>
+    <el-table :data="leave" border stripe style="width: 100%">
+        <el-table-column prop="studentid" label="请假学生学号" width="100"> </el-table-column>
+        <el-table-column prop="starttime" label="请假开始时间"></el-table-column>
+        <el-table-column prop="endtime" label="请假结束时间"></el-table-column>
+        <el-table-column prop="reason" label="请假理由"></el-table-column>
+        <el-table-column prop="attachment" label="请假附件"></el-table-column>
+        <el-table-column prop="state" label="审核状态"></el-table-column>
+        <el-table-column  label="下载附件"><a href="http://localhost:9998/download?downfile=">下载附件</a></el-table-column>
+        <!--<el-table-column-->
+                <!--fixed="right"-->
+                <!--label="操作"-->
+        <!--&gt;-->
+            <!--<template slot-scope="scope">-->
+                <!--<el-button type="primary" size="mini" @click="permit(scope.row)">通过</el-button>-->
+                <!--<el-button type="danger" size="mini" @click="reject(scope.row)">拒绝</el-button>-->
+            <!--</template>-->
+            <!--            <template slot-scope="scope">-->
+            <!--                <el-button type="primary" icon="el-icon-edit" circle size='small' @click="edit(scope.row)"></el-button>-->
+            <!--                <el-popconfirm-->
+            <!--                        @onConfirm="del(scope.row.id)"-->
+            <!--                        title="确定删除？"-->
+            <!--                >-->
+            <!--                    <el-button size='small' type="danger" icon="el-icon-delete" circle slot="reference" style="margin-left: 10px"></el-button>-->
+            <!--                </el-popconfirm>-->
+            <!--            </template>-->
         </el-table-column>
     </el-table>
-
-
-    <el-dialog title="提交作业" :visible.sync="dialogFormVisible" width="40%"
-               :close-on-click-modal="false">
-        <el-form :model="entity">
-            <el-form-item label="课程编号" label-width="120px">
-                <el-input type="textarea" v-model="entity.courseid" autocomplete="off" style="width: 80%"></el-input>
-            </el-form-item>
-            <el-form-item label="作业内容" label-width="120px">
-                <el-input type="textarea" v-model="entity.content" autocomplete="off" style="width: 80%"></el-input>
-            </el-form-item>
-
-            <el-form-item label="上传附件" label-width="120px">
-                <el-upload
-                        accept=".jpg,.jpeg,.png,.gif,.txt,.pdf,.JPG,.JPEG,.PBG,.GIF,.BMP,.PDF"
-                        class="upload-demo"
-                        action="http://localhost:9998/upload"
-                        :on-preview="handlePreview"
-                        :on-remove="handleRemove"
-                        :before-remove="beforeRemove"
-                        multiple
-                        :limit="3"
-                        :on-exceed="handleExceed"
-                        :on-success="onSuccessUpload"
-                        :file-list="entity.attachment">
-                    <el-button size="small" type="primary">点击上传</el-button>
-                    <div slot="tip" class="el-upload__tip">上传课程作业相关附件</div>
-                </el-upload>
-            </el-form-item>
-        </el-form>
-        <div slot="footer" class="dialog-footer">
-            <el-button @click="dialogFormVisible = false">取 消</el-button>
-            <el-button type="primary" @click="save">提 交</el-button>
-        </div>
-    </el-dialog>
 </div>
 
 <script src="../../js/jquery.min.js"></script>
@@ -105,7 +61,14 @@
     new Vue({
         el: "#wrapper",
         data: {
-            homeworks: '',
+            entity:'',
+            teacherid:'',
+            leave:'',
+
+            value1: [new Date(2000, 10, 10, 10, 10), new Date(2000, 10, 11, 10, 10)],
+            value2: '',
+
+            value: '',
             form: {
                 course: '',
                 username: '',
@@ -119,50 +82,73 @@
             }, {
                 name: 'food2.jpeg',
                 url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'
-            }],
-            options: [],
-            fileList: [],
-            user: {},
-            tableData: [],
-            pageNum: 1,
-            pageSize: 10,
-            total: 0,
-            dialogFormVisible: false,
-            entity: {},
-            isCollapse: false,
-            search: '',
+            }]
         },
         created() {
             this.user = sessionStorage.getItem("user") ? JSON.parse(sessionStorage.getItem("user")) : {};
-            this.loadTable();
-            this.getCourses(this.user.username);
+            this.teacherid = this.user.username;
+            this.loadTable(this.teacherid);
         },
         methods: {
-            req(obj) {
-                // this.$router.push({path:'http://localhost:9998/download?downfile=git.txt'})
-                var url = "http://localhost:9998/download?downfile=" + obj.files;
-                window.open(url, "_self");
 
-            },
-            getCourses(studentId) {
-                $.get("/api/select/homeworks/" + studentId).then(res => {
+
+            permit(obj){
+                obj.state="通过";
+                $.ajax({
+
+                    url: "/api/leave/permit",
+                    type: "PUT",
+                    contentType: "application/json",
+                    data: JSON.stringify(obj)
+                }).then(res => {
                     if (res.code === '0') {
-
-                        this.homeworks = res.data
-
+                        this.$message({
+                            message: "保存成功",
+                            type: "success"
+                        });
+                    } else {
+                        this.$message({
+                            message: res.msg,
+                            type: "error"
+                        })
                     }
+                    alert("审批成功");
+                    location.reload();
+                    this.loadTable();
+                    this.dialogFormVisible = false;
                 })
             },
-            onSuccessUpload(res, file, fileList) {
-                this.entity.attachment = file.name;
+            reject(obj){
+                obj.state="拒绝";
+                $.ajax({
+
+                    url: "/api/leave/reject",
+                    type: "PUT",
+                    contentType: "application/json",
+                    data: JSON.stringify(obj)
+                }).then(res => {
+                    if (res.code === '0') {
+                        this.$message({
+                            message: "保存成功",
+                            type: "success"
+                        });
+                    } else {
+                        this.$message({
+                            message: res.msg,
+                            type: "error"
+                        })
+                    }
+                    alert("审批成功");
+                    location.reload();
+                    this.loadTable();
+                    this.dialogFormVisible = false;
+                })
             },
             handleRemove(file, fileList) {
                 console.log(file, fileList);
             },
             handlePreview(file) {
-                // this.leave.attachment=file.name;
-                console.log(file.name)
-                return file.name;
+                console.log(file);
             },
             handleExceed(files, fileList) {
                 this.$message.warning(`当前限制选择 3 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`);
@@ -170,13 +156,16 @@
             beforeRemove(file, fileList) {
                 return this.$confirm(`确定移除 ${file.name}？`);
             },
+            onSubmit() {
+                console.log('submit!');
+            },
             fileSuccessUpload(res) {
                 this.entity.file = "http://localhost:9999/files/" + res.data;
                 this.entity.img = "http://localhost:9999/files/" + res.data;
                 console.log(res)
             },
             successUpload(value) {
-                $.get("/api/teachers/upload/" + value.data).then(res => {
+                $.get("/api/homework/upload/" + value.data).then(res => {
                     if (res.code === '0') {
                         this.$message({
                             message: "导入成功",
@@ -199,10 +188,9 @@
                 sessionStorage.removeItem("user");
                 location.href = "/page/end/login.html";
             },
-            loadTable() {
-                $.get(urlBase + "/page?pageNum=" + this.pageNum + "&pageSize=" + this.pageSize + "&name=" + this.search).then(res => {
-                    this.tableData = res.data.records;
-                    this.total = res.data.total;
+            loadTable(teacherid) {
+                $.get("/api/leave/students/"+teacherid).then(res => {
+                    this.leave = res.data;
                 })
 
                 // $.get("/api/").then(res => {
@@ -226,11 +214,10 @@
                 this.dialogFormVisible = true;
             },
             save() {
-                // let type = this.entity.id ? "PUT" : "POST";
+                let type = this.entity.id ? "PUT" : "POST";
                 $.ajax({
-
-                    url: "/api/homework/commit",
-                    type: "PUT",
+                    url: urlBase,
+                    type: type,
                     contentType: "application/json",
                     data: JSON.stringify(this.entity)
                 }).then(res => {
@@ -250,8 +237,7 @@
                 })
             },
             edit(obj) {
-                this.entity.studentid = this.user.username;
-                this.entity.courseid = JSON.parse(JSON.stringify(obj)).courseid;
+                this.entity = JSON.parse(JSON.stringify(obj));
                 this.fileList = [];
                 this.dialogFormVisible = true;
             },

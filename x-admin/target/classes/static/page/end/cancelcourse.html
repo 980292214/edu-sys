@@ -5,27 +5,27 @@
     <meta HTTP-EQUIV="pragma" CONTENT="no-cache">
     <meta HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
     <meta HTTP-EQUIV="expires" CONTENT="0">
-    <title>学生选课</title>
+    <title>学生退选</title>
     <link rel="stylesheet" href="../../css/element.css">
     <link rel="stylesheet" href="../../css/base.css">
 </head>
 <body>
 <div id="wrapper" v-cloak>
     <div style="padding-bottom: 10px">
-            <el-breadcrumb separator-class="el-icon-arrow-right">
-                <el-breadcrumb-item @click.native="parent.changeIndex('index')">首页</el-breadcrumb-item>
-                <el-breadcrumb-item>未选课程</el-breadcrumb-item>
-            </el-breadcrumb>
-        </div>
+        <el-breadcrumb separator-class="el-icon-arrow-right">
+            <el-breadcrumb-item @click.native="parent.changeIndex('index')">首页</el-breadcrumb-item>
+            <el-breadcrumb-item>已选课程</el-breadcrumb-item>
+        </el-breadcrumb>
+    </div>
 
-        <div style="height: 1px; margin: 10px 0; background-color: white"></div>
+    <div style="height: 1px; margin: 10px 0; background-color: white"></div>
     <el-input size='small' v-model="search" style="width: 20%;" suffix-icon="el-icon-search" placeholder="请输入名称按回车搜索"
               @keyup.enter.native="loadTable"></el-input>
     <!--<el-button size='small' @click="add" type="primary"  style="margin: 10px 0">发布课程</el-button>-->
-<!--    <el-upload action="/files/upload" :on-success="successUpload" :show-file-list="false" style="display: inline-block">-->
-<!--        <el-button size='small' type="primary">导入</el-button>-->
-<!--    </el-upload>-->
-<!--    <el-button size='small' @click="exp" type="primary"  style="margin: 10px 0">导出</el-button>-->
+    <!--    <el-upload action="/files/upload" :on-success="successUpload" :show-file-list="false" style="display: inline-block">-->
+    <!--        <el-button size='small' type="primary">导入</el-button>-->
+    <!--    </el-upload>-->
+    <!--    <el-button size='small' @click="exp" type="primary"  style="margin: 10px 0">导出</el-button>-->
     <el-table :data="entity" border stripe style="width: 100%">
         <el-table-column prop="id" label="课程编号" width="100"> </el-table-column>
         <el-table-column prop="coursename" label="课程名称"></el-table-column>
@@ -34,7 +34,7 @@
         <el-table-column prop="credit" label="学分"></el-table-column>
         <el-table-column prop="coursedesc" label="课程描述"></el-table-column>
         <el-table-column prop="place" label="上课地点"></el-table-column>
-        <el-table-column prop="time" label="上课日期"></el-table-column>
+        <el-table-column prop="time" label="上课开始日期"></el-table-column>
         <el-table-column prop="moder" label="修读方式"></el-table-column>
         <el-table-column prop="number" label="课程人数"></el-table-column>
         <el-table-column prop="limitmajor" label="限选专业"></el-table-column>
@@ -43,19 +43,19 @@
         <el-table-column
                 fixed="right"
                 label="操作"
-                >
+        >
             <template slot-scope="scope">
-            <el-button type="primary" size="mini" @click="pick(scope.row)">选课</el-button>
+                <el-button type="danger" size="mini" @click="cancel(scope.row)">退选</el-button>
             </template>
-<!--            <template slot-scope="scope">-->
-<!--                <el-button type="primary" icon="el-icon-edit" circle size='small' @click="edit(scope.row)"></el-button>-->
-<!--                <el-popconfirm-->
-<!--                        @onConfirm="del(scope.row.id)"-->
-<!--                        title="确定删除？"-->
-<!--                >-->
-<!--                    <el-button size='small' type="danger" icon="el-icon-delete" circle slot="reference" style="margin-left: 10px"></el-button>-->
-<!--                </el-popconfirm>-->
-<!--            </template>-->
+            <!--            <template slot-scope="scope">-->
+            <!--                <el-button type="primary" icon="el-icon-edit" circle size='small' @click="edit(scope.row)"></el-button>-->
+            <!--                <el-popconfirm-->
+            <!--                        @onConfirm="del(scope.row.id)"-->
+            <!--                        title="确定删除？"-->
+            <!--                >-->
+            <!--                    <el-button size='small' type="danger" icon="el-icon-delete" circle slot="reference" style="margin-left: 10px"></el-button>-->
+            <!--                </el-popconfirm>-->
+            <!--            </template>-->
         </el-table-column>
     </el-table>
     <!-- 分页 -->
@@ -151,14 +151,24 @@
         methods: {
 
             //选课
-            pick(obj){
+            cancel(obj){
                 var temp  = JSON.parse(JSON.stringify(obj));
                 this.select.studentid = this.user.username;
                 this.select.courseid = temp.id;
                 this.select.teacherid = temp.teacherid;
-                $.ajax({
-                    url: "http://localhost:9998/api/select",
-                    type: 'POST',
+                $.get("/api/select/delete/" + temp.id+"/"+this.select.studentid).then(res => {
+                    if (res.code === '0') {
+                        this.$message({
+                            message: "退选成功",
+                            type: "success",
+                        });
+                        location.reload()
+                        this.loadTable()
+                    }
+                })
+               /* $.ajax({
+                    url: "http://localhost:9998/api/select/delete?studentId="+this.select.studentid+"&courseId="+temp.id,
+                    type: 'GET',
                     contentType: "application/json",
 
                     data: JSON.stringify(this.select)
@@ -179,7 +189,7 @@
                     location.reload();
 
 
-                })
+                })*/
             },
             fileSuccessUpload(res) {
                 this.entity.file = "http://localhost:9999/files/" + res.data;
@@ -215,15 +225,15 @@
                 //     this.tableData = res.data.records;
                 //     this.total = res.data.total;
                 // })
-                $.get("/api/select/noselect/" + studentId).then(res => {
+                $.get("/api/select/select/" + studentId).then(res => {
                     if (res.code === '0') {
                         this.entity = res.data;
                         // console.log(this.entity)
                     }
                 })
-                 // $.get("/api/").then(res => {
-                    // this.options = res.data;
-                 // })
+                // $.get("/api/").then(res => {
+                // this.options = res.data;
+                // })
             },
             exp() {   // excel 导出
                 window.open(urlBase + "/export");
