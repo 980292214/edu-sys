@@ -27,7 +27,7 @@
 <!--    </el-upload>-->
 <!--    <el-button size='small' @click="exp" type="primary"  style="margin: 10px 0">导出</el-button>-->
     <el-table :data="tableData" border stripe style="width: 100%">
-        <el-table-column prop="id" label="反馈编号" width="100"> </el-table-column>
+        <el-table-column prop="id" label="反馈编号" width="100" sortable> </el-table-column>
         <el-table-column prop="courseid" label="课程编号"></el-table-column>
         <el-table-column prop="studentid" label="学号"></el-table-column>
         <el-table-column prop="content" label="反馈内容"></el-table-column>
@@ -64,7 +64,7 @@
                :close-on-click-modal="false">
         <el-form :model="entity">
             <el-form-item label="课程编号" label-width="120px">
-                <el-input v-model="entity.courseid" autocomplete="off" style="width: 80%"></el-input>
+                <el-input v-model="entity.courseid" autocomplete="off" style="width: 80%" sortable></el-input>
             </el-form-item>
             <el-form-item label="学号" label-width="120px">
                 <el-input v-model="entity.studentid" autocomplete="off" style="width: 80%"></el-input>

@@ -34,9 +34,9 @@
         <el-table-column prop="credit" label="学分"></el-table-column>
         <el-table-column prop="coursedesc" label="课程描述"></el-table-column>
         <el-table-column prop="place" label="上课地点"></el-table-column>
-        <el-table-column prop="time" label="上课开始日期"></el-table-column>
+        <el-table-column prop="time" label="上课日期"></el-table-column>
         <el-table-column prop="moder" label="修读方式"></el-table-column>
-        <el-table-column prop="number" label="课程人数"></el-table-column>
+        <el-table-column prop="number" label="课程最大人数"></el-table-column>
         <el-table-column prop="limitmajor" label="限选专业"></el-table-column>
         <!--<el-table-column prop="state" label="审核状态" :disabled="(user.role)=='1'"></el-table-column>-->
 
@@ -95,13 +95,13 @@
             <el-form-item label="上课地点" label-width="120px">
                 <el-input v-model="entity.place" autocomplete="off" style="width: 80%"></el-input>
             </el-form-item>
-            <el-form-item label="上课开始日期" label-width="120px">
+            <el-form-item label="上课日期" label-width="120px">
                 <el-date-picker style="width: 80%" v-model="entity.time" type="datetime" value-format="yyyy-MM-dd HH:mm:ss" placeholder="选择日期时间"></el-date-picker>
             </el-form-item>
             <el-form-item label="修读方式" label-width="120px">
                 <el-input v-model="entity.moder" autocomplete="off" style="width: 80%"></el-input>
             </el-form-item>
-            <el-form-item label="课程人数" label-width="120px">
+            <el-form-item label="课程最大人数" label-width="120px">
                 <el-input v-model="entity.number" autocomplete="off" style="width: 80%"></el-input>
             </el-form-item>
             <el-form-item label="限选专业" label-width="120px">

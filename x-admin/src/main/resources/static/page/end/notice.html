@@ -22,13 +22,13 @@
 
     <el-input v-model="search" style="width: 20%;" suffix-icon="el-icon-search" placeholder="请输入名称按回车搜索"
               @keyup.enter.native="loadTable"></el-input>
-    <el-button @click="add" type="primary"  style="margin: 10px 0">新增</el-button>
+    <el-button @click="add" type="primary"  style="margin: 10px 0">发布新通知</el-button>
     <!-- <el-button @click="exp" type="primary"  style="margin: 10px 0">导出</el-button> -->
     <el-table
             :data="tableData"
             border
             style="width: 100%">
-        <el-table-column prop="id" label="通知编号" width="50">
+        <el-table-column prop="id" label="通知编号" width="50" sortable>
         </el-table-column>
         <el-table-column prop="title" label="通知标题"></el-table-column>
         <el-table-column prop="content" label="通知内容"></el-table-column>

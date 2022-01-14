@@ -248,7 +248,7 @@
         methods: {
             load() {
                 $.get("/api/notice/").then((res) => {
-                    this.notices = res.data;
+                    this.notices = res.data.reverse();//倒叙排序
                 })
 
                 // 基于准备好的dom，初始化echarts实例

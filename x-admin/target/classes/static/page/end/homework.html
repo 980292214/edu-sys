@@ -33,20 +33,21 @@
         <el-table-column prop="studentid" label="学号"></el-table-column>
         <el-table-column prop="content" label="作业内容"></el-table-column>
         <el-table-column prop="attachment" label="作业附件"></el-table-column>
-        <el-table-column prop="deadline" label="截至日期"></el-table-column>
+        <el-table-column prop="deadline" label="截止日期"></el-table-column>
         <el-table-column prop="state" label="提交状态" :disabled="true"></el-table-column>
 
         <el-table-column
           fixed="right"
           label="操作"
-          width="200">
-        <template slot-scope="scope">
-          <el-button type="primary" icon="el-icon-edit" circle size='small' @click="edit(scope.row)"></el-button>
+          width="200"
+        >
+        <template slot-scope="scope" >
+          <el-button type="primary" icon="el-icon-edit" circle size='small' @click="edit(scope.row)" :disabled = "(user.role)=='3'"></el-button>
           <el-popconfirm
               @onConfirm="del(scope.row.id)"
               title="确定删除？"
           >
-            <el-button size='small' type="danger" icon="el-icon-delete" circle slot="reference" style="margin-left: 10px"></el-button>
+            <el-button size='small' type="danger" icon="el-icon-delete" circle slot="reference" style="margin-left: 10px" :disabled = "(user.role)=='3'"></el-button>
           </el-popconfirm>
         </template>
         </el-table-column>
@@ -68,7 +69,7 @@
                :close-on-click-modal="false">
         <el-form :model="entity">
             <el-form-item label="作业编号" label-width="120px">
-                <el-input v-model="entity.id" autocomplete="off" style="width: 80%"></el-input>
+                <el-input v-model="entity.id" autocomplete="off" style="width: 80%" disabled="true"></el-input>
             </el-form-item>
             <el-form-item label="课程编号" label-width="120px">
                 <el-input v-model="entity.courseid" autocomplete="off" style="width: 80%"></el-input>
@@ -82,8 +83,8 @@
             <el-form-item label="作业附件" label-width="120px">
                 <el-input v-model="entity.attachment" autocomplete="off" style="width: 80%"></el-input>
             </el-form-item>
-            <el-form-item label="截至日期" label-width="120px">
-                <el-input v-model="entity.deadline" autocomplete="off" style="width: 80%"></el-input>
+            <el-form-item label="截止日期" label-width="120px">
+                <el-input v-model="entity.deadline" autocomplete="off" style="width: 80%" ></el-input>
             </el-form-item>
             <el-form-item label="提交状态" label-width="120px">
                 <el-input v-model="entity.state" autocomplete="off" style="width: 80%" :disabled="true"></el-input>

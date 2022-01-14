@@ -15,7 +15,7 @@ import java.util.Map;
 /**
  * mybatis代码生成器
  *
- * @date 2021-3-10
+ *
  */
 public class MybatisCodeGenerator {
     private static final DruidDataSource ds = new DruidDataSource();
@@ -28,7 +28,9 @@ public class MybatisCodeGenerator {
 
     static {
         // 必填
-        ds.setUrl("jdbc:mysql://localhost:3306/" + schemaName + "?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true&useSSL=false&serverTimezone=GMT%2b8");
+        ds.setUrl("jdbc:mysql://localhost:3306/" + schemaName + "?" +
+                "useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true&useSSL=false" +
+                "&serverTimezone=GMT%2b8");
         ds.setUsername("root");
         ds.setPassword("root");
     }

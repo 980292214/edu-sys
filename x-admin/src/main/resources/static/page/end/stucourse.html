@@ -36,7 +36,7 @@
         <el-table-column prop="place" label="上课地点"></el-table-column>
         <el-table-column prop="time" label="上课日期"></el-table-column>
         <el-table-column prop="moder" label="修读方式"></el-table-column>
-        <el-table-column prop="number" label="课程人数"></el-table-column>
+        <el-table-column prop="number" label="课程最大人数"></el-table-column>
         <el-table-column prop="limitmajor" label="限选专业"></el-table-column>
         <!--<el-table-column prop="state" label="审核状态" :disabled="(user.role)=='1'"></el-table-column>-->
 
@@ -149,7 +149,6 @@
             this.loadTable(this.user.username);
         },
         methods: {
-
             //选课
             pick(obj){
                 var temp  = JSON.parse(JSON.stringify(obj));

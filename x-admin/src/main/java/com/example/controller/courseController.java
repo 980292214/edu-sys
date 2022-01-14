@@ -95,7 +95,7 @@ public class courseController {
 
         LambdaQueryWrapper<course> query = Wrappers.<course>lambdaQuery().orderByDesc(course::getId);
         if (StrUtil.isNotBlank(name)) {
-            query.like(course::getCoursename, name);
+            query.like(course::getTeacherid, name);
         }
         return Result.success(courseService.page(new Page<>(pageNum, pageSize), query));
     }

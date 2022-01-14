@@ -22,7 +22,7 @@
 
     <el-table :data="selects" border stripe style="width: 100%">
         <!--        <el-table-column prop="id" label="ID" width="100"> </el-table-column>-->
-        <el-table-column prop="id" label="反馈编号" width="100"> </el-table-column>
+        <el-table-column prop="id" label="反馈编号" width="100" sortable> </el-table-column>
         <el-table-column prop="coursename" label="已选课程"></el-table-column>
         <el-table-column prop="name" label="教师名称"></el-table-column>
         <el-table-column
@@ -45,7 +45,7 @@
     <el-dialog title="课程反馈" :visible.sync="dialogFormVisible" width="40%"
                :close-on-click-modal="false">
         <el-form :model="feedback">
-            <el-form-item label="课程id" label-width="120px">
+            <el-form-item label="课程" label-width="120px">
                 <el-input v-model="feedback.coursename" autocomplete="off" style="width: 80%" :disabled="true"></el-input>
             </el-form-item>
             <el-form-item label="反馈内容" label-width="120px">

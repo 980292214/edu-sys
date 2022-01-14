@@ -41,12 +41,12 @@
           label="操作"
           width="200">
         <template slot-scope="scope">
-          <el-button type="primary" icon="el-icon-edit" circle size='small' @click="edit(scope.row)"></el-button>
+          <el-button type="primary" icon="el-icon-edit" circle size='small' @click="edit(scope.row)" :disabled = "(user.role)=='1'"></el-button>
           <el-popconfirm
               @onConfirm="del(scope.row.id)"
               title="确定删除？"
           >
-            <el-button size='small' type="danger" icon="el-icon-delete" circle slot="reference" style="margin-left: 10px"></el-button>
+            <el-button size='small' type="danger" icon="el-icon-delete" circle slot="reference" style="margin-left: 10px" :disabled = "(user.role)=='1'"></el-button>
           </el-popconfirm>
         </template>
         </el-table-column>

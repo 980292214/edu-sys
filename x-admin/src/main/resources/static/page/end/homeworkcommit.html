@@ -30,7 +30,7 @@
         <el-table-column prop="coursename" label="课程名称"></el-table-column>
         <el-table-column prop="deadline" label="最后期限"></el-table-column>
 <!--        <el-table-column prop="state" label="提交状态"></el-table-column>-->
-        <el-table-column prop="demand" label="作业需求"></el-table-column>
+        <el-table-column prop="demand" label="作业要求"></el-table-column>
         <el-table-column label="下载附件">
             <template slot-scope="scope">
                 <el-button type="" size="mini" @click="req(scope.row)">下载附件</el-button>
@@ -45,7 +45,7 @@
                 label="操作"
                 width="200">
             <template slot-scope="scope">
-                <el-button type="primary" icon="el-icon-edit" circle size='small' @click="edit(scope.row)"></el-button>
+                <el-button type="primary"   size='small' @click="edit(scope.row)">作业提交</el-button>
                 <!--<el-popconfirm
                         @onConfirm="del(scope.row.id)"
                         title="确定删除？"
@@ -61,8 +61,8 @@
     <el-dialog title="提交作业" :visible.sync="dialogFormVisible" width="40%"
                :close-on-click-modal="false">
         <el-form :model="entity">
-            <el-form-item label="课程编号" label-width="120px">
-                <el-input type="textarea" v-model="entity.courseid" autocomplete="off" style="width: 80%"></el-input>
+            <el-form-item label="课程编号" label-width="120px ">
+                <el-input type="textarea" v-model="entity.courseid" autocomplete="off" style="width: 80%" disabled="true"></el-input>
             </el-form-item>
             <el-form-item label="作业内容" label-width="120px">
                 <el-input type="textarea" v-model="entity.content" autocomplete="off" style="width: 80%"></el-input>

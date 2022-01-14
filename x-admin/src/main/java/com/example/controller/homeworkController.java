@@ -82,7 +82,7 @@ public class homeworkController {
                                                 @RequestParam(required = false, defaultValue = "10") Integer pageSize) {
         LambdaQueryWrapper<homework> query = Wrappers.<homework>lambdaQuery().orderByDesc(homework::getId);
         if (StrUtil.isNotBlank(name)) {
-            query.like(homework::getContent, name);
+            query.like(homework::getCourseid, name);
         }
         return Result.success(homeworkService.page(new Page<>(pageNum, pageSize), query));
     }
